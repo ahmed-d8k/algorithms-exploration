@@ -1,3 +1,5 @@
+#ifndef TEST_KARATSUBA_H
+#define TEST_KARATASUBA_H
 
 #include "..\..\..\Test\src\test.h"
 
@@ -10,3 +12,5 @@ class Test_Karatsuba : Test{
         void test_get_bot_half();
         void execute_tests();
 };
+
+#endif

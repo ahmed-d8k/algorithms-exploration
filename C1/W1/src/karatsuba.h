@@ -1,3 +1,5 @@
+#ifndef KARATSUBA_H
+#define KARATSUBA_H
 
 class Karatsuba{
     public:
@@ -14,3 +16,5 @@ class Karatsuba{
         int static clean_raw_digits(int raw_digits);
         bool static is_even(int x);
 };
+
+#endif
