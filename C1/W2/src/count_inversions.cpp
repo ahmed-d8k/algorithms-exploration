@@ -38,10 +38,10 @@ std::vector<int> Count_Inversions::merge_and_sort(std::vector<int> lwr_split, st
 
     std::vector<int> sorted_vec = {};
 
-    while((lwr_it!=lwr_split.end()) && (upr_it!=upr_split.end())){
+    while(merge_in_progress(lwr_it!=lwr_split.end(),upr_it!=upr_split.end())){
         int curr_lwr_val = *lwr_it;
         int curr_upr_val = *upr_it;
-        if(curr_lwr_val <= curr_upr_val){
+        if(lwr_val_less_than_upr(curr_lwr_val, curr_upr_val)){
             sorted_vec.push_back(curr_lwr_val);
             lwr_it++;
         }
@@ -51,6 +51,24 @@ std::vector<int> Count_Inversions::merge_and_sort(std::vector<int> lwr_split, st
         }
     }
     return sorted_vec;
+}
+
+bool Count_Inversions::merge_in_progress(bool vec1_not_done, bool vec2_not_done){
+    if(vec1_not_done && vec2_not_done){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Count_Inversions::lwr_val_less_than_upr(int lwr, int upr){
+    if(lwr <= upr){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool Count_Inversions::before_split_ind(int index, int split_index){
