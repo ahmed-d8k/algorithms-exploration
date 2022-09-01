@@ -3,42 +3,58 @@
 
 #include "count_inversions.h"
 
-int Count_Inversions::count_inversions(std::vector<int> unsorted_vec){
+Count_Inversions::Count_Inversions(): inversion_count(0){}
+
+std::vector<int> Count_Inversions::count_inversions(std::vector<int> unsorted_vec){
+    int unsorted_vec_size = unsorted_vec.size();
+    if(is_base_case(unsorted_vec_size)){
+        return unsorted_vec;
+    }
     std::vector<int> lwr_split = {};
     std::vector<int> upr_split = {};
     split_vec_into_two_vecs(unsorted_vec, lwr_split, upr_split);
 
-    std::vector<int> sorted_lwr_split = merge_sort(lwr_split);
-    std::vector<int> sorted_upr_split = merge_sort(upr_split);
+    std::vector<int> sorted_lwr_split = count_inversions(lwr_split);
+    std::vector<int> sorted_upr_split = count_inversions(upr_split);
 
-    int split_inversions = merge_and_count_inversions(sorted_lwr_split, sorted_upr_split);
-    return split_inversions;
+    std::vector<int> sorted_vec = merge_and_count_inversions(sorted_lwr_split, sorted_upr_split);
+    return sorted_vec;
 }
 
-int Count_Inversions::merge_and_count_inversions(std::vector<int> lwr_split, std::vector<int> upr_split){
+std::vector<int> Count_Inversions::merge_and_count_inversions(std::vector<int> lwr_split, std::vector<int> upr_split){
     std::vector<int>::iterator lwr_it = lwr_split.begin(); 
     std::vector<int>::iterator upr_it = upr_split.begin();
+    std::vector<int> sorted_vec = {};
     int lwr_elements_remaining = lwr_split.size();
-    int answer = 0;
     while(merge_in_progress(lwr_it!=lwr_split.end(),upr_it!=upr_split.end())){
         int curr_lwr_val = *lwr_it;
         int curr_upr_val = *upr_it;
         if(lwr_val_less_than_upr(curr_lwr_val, curr_upr_val) && lwr_it!=lwr_split.end()){
+            sorted_vec.push_back(curr_lwr_val);
             lwr_elements_remaining--;
             lwr_it++;
         }
         else if(upr_it != upr_split.end()){
-            answer += lwr_elements_remaining;
+            sorted_vec.push_back(curr_upr_val);
+            inversion_count += lwr_elements_remaining;
             upr_it++;
         }
         else if(lwr_it==lwr_split.end() && upr_it!=upr_split.end()){
+            sorted_vec.push_back(curr_upr_val);
             upr_it++;
         }
         else if(lwr_it!=lwr_split.end() && upr_it==upr_split.end()){
+            sorted_vec.push_back(curr_lwr_val);
             lwr_elements_remaining--;
             lwr_it++;
         }
     }
+    return sorted_vec;
+}
+
+int Count_Inversions::get_and_reset_inversion_count(){
+    int answer = inversion_count;
+    inversion_count = 0;
     return answer;
 }
 
