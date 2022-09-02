@@ -52,8 +52,8 @@ std::vector<int> Count_Inversions::merge_and_count_inversions(std::vector<int> l
     return sorted_vec;
 }
 
-int Count_Inversions::get_and_reset_inversion_count(){
-    int answer = inversion_count;
+long long int Count_Inversions::get_and_reset_inversion_count(){
+    long long int answer = inversion_count;
     inversion_count = 0;
     return answer;
 }
