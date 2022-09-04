@@ -13,7 +13,8 @@ void Test_Quicksort::test_left_start_quicksort(){
 
 void Test_Quicksort::test_quicksort(){
     Quicksort qs_obj;
-    std::vector<int> answer = qs_obj.quicksort((std::vector<int>){3, 2, 4, 5, 7, 1, 6, 8}, "left");
+    std::vector<int> test1 = {3, 2, 4, 5, 7, 1, 6, 8};
+    std::vector<int> answer = qs_obj.quicksort(test1, "left");
     for(int val: answer){
         std::cout << val << "\n";
     }
