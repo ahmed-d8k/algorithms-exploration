@@ -70,9 +70,12 @@ void Quicksort::median_of_three_quicksort(int start_ind, int size){
     }
 
     end_ind = start_ind + size - 1;
-    int center_ind = get_center_ind(start_ind, size);
-    int median_ind = get_median_ind(start_ind, center_ind, end_ind);
-    swap_median_and_first_ele(start_ind, median_ind);
+
+    if(size > 2){
+        int center_ind = get_center_ind(start_ind, size);
+        int median_ind = get_median_ind(start_ind, center_ind, end_ind);
+        swap_median_and_first_ele(start_ind, median_ind);
+    }
 
     count_comparisons(size);
 
@@ -94,11 +97,11 @@ void Quicksort::median_of_three_quicksort(int start_ind, int size){
 int Quicksort::get_center_ind(int start_ind, int size){
     int center_ind;
     if(even(size)){
-        center_ind = start_ind + size/2;
+        center_ind = start_ind + size/2 - 1;
         return center_ind;
     }
     else{
-        center_ind = start_ind + size/2 + 1;
+        center_ind = start_ind + size/2;
         return center_ind;
     }
 }
@@ -120,7 +123,7 @@ int Quicksort::get_median_ind(int start_ind, int center_ind, int end_ind){
 }
 
 bool Quicksort::median_of_three(int possible_median, int num1, int num2){
-   if((num1 < possible_median && num2 > possible_median) || (num2 < possible_median && num1 > possible_median)){
+   if(((num1 < possible_median) && (num2 > possible_median)) || ((num2 < possible_median) && (num1 > possible_median))){
     return true;
    } 
    else{
@@ -133,7 +136,7 @@ void Quicksort::swap_median_and_first_ele(int start_ind, int median_ind){
     int start_ind_val = int_vec[start_ind];
     int median_ind_val = int_vec[median_ind];
     int_vec[start_ind] = median_ind_val;
-    int_vec[end_ind] = start_ind_val;
+    int_vec[median_ind] = start_ind_val;
 }
 
 bool Quicksort::even(int num){
