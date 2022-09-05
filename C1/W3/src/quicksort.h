@@ -17,6 +17,9 @@ class Quicksort{
         bool less_than_pivot();
         void move_pivot_to_interface();
         void count_comparisons(int size);
+        int get_comparison_count();
+        bool first_comparison(int i, int first_ind_val);
+
 };
 
 #endif
