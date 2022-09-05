@@ -18,11 +18,54 @@ std::vector<int> Quicksort::quicksort(std::vector<int> unsorted_vec, std::string
     comparison_count = 0;
     int size = int_vec.size();
 
-    if(pivot_method == "left"){
-        left_start_quicksort(0, size);
+    if(pivot_method == "first"){
+        first_ele_quicksort(0, size);
+    }
+    else if(pivot_method == "last"){
+        last_ele_quicksort(0, size);
+
+    }
+    else if(pivot_method == "median_of_three"){
+        median_of_three_quicksort(0, size);
+
     }
 
     return int_vec;
+}
+
+void Quicksort::last_ele_quicksort(int start_ind, int size){
+    if(base_case(size)){
+        return;
+    }
+
+    end_ind = start_ind + size - 1;
+    swap_last_and_first_ele(start_ind, end_ind);
+
+    count_comparisons(size);
+
+    do_quicksort(start_ind);
+
+    move_pivot_to_interface();
+
+    int first_half_size = pivot_interface_ind - start_ind;
+    int first_half_start_ind = start_ind;
+    int second_half_size = end_ind - pivot_interface_ind;
+    int second_half_start_ind = pivot_interface_ind+1;
+
+    last_ele_quicksort(first_half_start_ind, first_half_size);
+    last_ele_quicksort(second_half_start_ind, second_half_size);
+
+}
+
+void Quicksort::swap_last_and_first_ele(int start_ind, int end_ind){
+    int last_ind_val = int_vec[end_ind];
+    int first_ind_val = int_vec[start_ind];
+    int_vec[start_ind] = last_ind_val;
+    int_vec[end_ind] = first_ind_val;
+}
+
+void Quicksort::median_of_three_quicksort(int start_ind, int size){
+
 }
 
 void Quicksort::copy_vec(std::vector<int> vec){
@@ -34,10 +77,11 @@ void Quicksort::copy_vec(std::vector<int> vec){
     }
 }
 
-void Quicksort::left_start_quicksort(int start_ind, int size){
+void Quicksort::first_ele_quicksort(int start_ind, int size){
     if(base_case(size)){
         return;
     }
+
     count_comparisons(size);
 
     end_ind = start_ind + size - 1;
@@ -51,8 +95,14 @@ void Quicksort::left_start_quicksort(int start_ind, int size){
     int second_half_size = end_ind - pivot_interface_ind;
     int second_half_start_ind = pivot_interface_ind+1;
 
-    left_start_quicksort(first_half_start_ind, first_half_size);
-    left_start_quicksort(second_half_start_ind, second_half_size);
+    first_ele_quicksort(first_half_start_ind, first_half_size);
+    first_ele_quicksort(second_half_start_ind, second_half_size);
+
+}
+
+//Abstraction Opportunity but Dont Know How Yet
+void Quicksort::main_quicksort(int start_ind, int size){
+
 }
 
 void Quicksort::count_comparisons(int size){
