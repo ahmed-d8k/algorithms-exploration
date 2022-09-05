@@ -23,6 +23,7 @@ void Test_Quicksort::test_pivot_types(){
     std::vector<int> test_arr = {3, 2, 4, 5, 7, 1, 6, 8};
     assert(qs_obj.quicksort(test_arr, "first") == ((std::vector<int>){1,2,3,4,5,6,7,8}));
     assert(qs_obj.quicksort(test_arr, "last") == ((std::vector<int>){1,2,3,4,5,6,7,8}));
+    std::vector<int> answer = qs_obj.quicksort(test_arr, "median_of_three");
     assert(qs_obj.quicksort(test_arr, "median_of_three") == ((std::vector<int>){1,2,3,4,5,6,7,8}));
     
     

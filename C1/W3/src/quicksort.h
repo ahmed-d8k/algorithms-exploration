@@ -15,6 +15,9 @@ class Quicksort{
         void last_ele_quicksort(int start_ind, int size);
         void swap_last_and_first_ele(int start_ind, int end_ind);
         void median_of_three_quicksort(int start_ind, int size);
+        int get_center_ind(int start_ind, int size);
+        int get_median_ind(int start_ind, int center_ind, int end_ind);
+        void swap_median_and_first_ele(int start_ind, int median_ind);
         void do_quicksort(int start_ind);
         bool base_case(int size);
         bool less_than_pivot();
@@ -23,6 +26,8 @@ class Quicksort{
         void main_quicksort(int start_ind, int size);
         int get_comparison_count();
         bool first_comparison(int i, int first_ind_val);
+        bool even(int num);
+        bool median_of_three(int possible_median, int num1, int num2);
 
 };
 

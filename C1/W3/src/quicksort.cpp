@@ -65,7 +65,84 @@ void Quicksort::swap_last_and_first_ele(int start_ind, int end_ind){
 }
 
 void Quicksort::median_of_three_quicksort(int start_ind, int size){
+    if(base_case(size)){
+        return;
+    }
 
+    end_ind = start_ind + size - 1;
+    int center_ind = get_center_ind(start_ind, size);
+    int median_ind = get_median_ind(start_ind, center_ind, end_ind);
+    swap_median_and_first_ele(start_ind, median_ind);
+
+    count_comparisons(size);
+
+    do_quicksort(start_ind);
+
+    move_pivot_to_interface();
+
+    int first_half_size = pivot_interface_ind - start_ind;
+    int first_half_start_ind = start_ind;
+    int second_half_size = end_ind - pivot_interface_ind;
+    int second_half_start_ind = pivot_interface_ind+1;
+
+    median_of_three_quicksort(first_half_start_ind, first_half_size);
+    median_of_three_quicksort(second_half_start_ind, second_half_size);
+
+
+}
+
+int Quicksort::get_center_ind(int start_ind, int size){
+    int center_ind;
+    if(even(size)){
+        center_ind = start_ind + size/2;
+        return center_ind;
+    }
+    else{
+        center_ind = start_ind + size/2 + 1;
+        return center_ind;
+    }
+}
+
+int Quicksort::get_median_ind(int start_ind, int center_ind, int end_ind){
+    int start_ind_val = int_vec[start_ind];
+    int center_ind_val = int_vec[center_ind];
+    int end_ind_val = int_vec[end_ind];
+    if(median_of_three(start_ind_val, center_ind_val, end_ind_val)){
+        return start_ind;
+    }
+    else if(median_of_three(center_ind_val, start_ind_val, end_ind_val)){
+        return center_ind;
+    }
+    else{
+        return end_ind;
+    }
+
+}
+
+bool Quicksort::median_of_three(int possible_median, int num1, int num2){
+   if((num1 < possible_median && num2 > possible_median) || (num2 < possible_median && num1 > possible_median)){
+    return true;
+   } 
+   else{
+    return false;
+   }
+}
+
+
+void Quicksort::swap_median_and_first_ele(int start_ind, int median_ind){
+    int start_ind_val = int_vec[start_ind];
+    int median_ind_val = int_vec[median_ind];
+    int_vec[start_ind] = median_ind_val;
+    int_vec[end_ind] = start_ind_val;
+}
+
+bool Quicksort::even(int num){
+    if(num%2 == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 void Quicksort::copy_vec(std::vector<int> vec){
