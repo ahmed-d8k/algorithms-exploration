@@ -10,11 +10,12 @@ main.o: main.cpp
 test_graph.o: test_graph.cpp
 	$(CC) $(CFLAGS) -c test_graph.cpp
 
+vertex.o: vertex.cpp
+	$(CC) $(CFLAGS) -c vertex.cpp
+
 sparse_graph.o: sparse_graph.cpp
 	$(CC) $(CFLAGS) -c sparse_graph.cpp
 
-vertex.o: vertex.cpp
-	$(CC) $(CFLAGS) -c vertex.cpp
 
 dense_graph.o: dense_graph.cpp
 	$(CC) $(CFLAGS) -c dense_graph.cpp

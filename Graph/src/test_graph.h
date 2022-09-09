@@ -9,6 +9,7 @@ class Test_Graph: Test{
         void test_sparse_graph();
         void test_add_vertex();
         void test_add_neighbor();
+
 };
 
 #endif

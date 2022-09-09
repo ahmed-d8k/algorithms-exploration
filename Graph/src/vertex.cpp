@@ -1,5 +1,7 @@
 #include "vertex.h"
 
+Vertex::Vertex(){}
+
 Vertex::Vertex(std::string id):
     id(id)
     {}

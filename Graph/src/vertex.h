@@ -9,6 +9,7 @@ class Vertex{
         std::string id;
         std::vector<std::string> adjacent_vec;
     public:
+        Vertex();
         Vertex(std::string id);
         void add_neighbor(std::string neighbor_id);
         bool already_has_this_neighbor(std::string neighbor_id);
