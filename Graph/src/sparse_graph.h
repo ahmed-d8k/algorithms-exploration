@@ -3,17 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "graph.h"
 
+class Vertex;
+
 class Sparse_Graph: Graph{
     private:
-        std::vector<std::string> vertex_vec;
+        std::map<std::string, Vertex> vertex_map;
     public:
         Sparse_Graph();
-        void add_neighbor_to_vec();
-        bool vertex_exists();
-
+        void add_neighbor_to_vertex(std::string neighbor_id, std::string vertex_id);
+        void add_vertex(std::string id);
+        bool vertex_exists(std::string id);
 };
 
 #endif
