@@ -37,3 +37,28 @@ void Sparse_Graph::add_neighbor_to_vertex(std::string neighbor_id, std::string v
         new_neighbor.add_neighbor(vertex_id);
     }
 }
+
+void Sparse_Graph::merge_vertexes(std::string vertex1, std::string vertex2){
+    Vertex& v1 = vertex_map[vertex1];
+    Vertex& v2 = vertex_map[vertex2];
+
+    v1.remove_neighbor(vertex2);
+    v2.remove_neighbor(vertex1);
+
+    v1.transfer_neighbors(v2);
+
+    remove_vertex(vertex2);
+
+    replace_vertex_id(vertex2, vertex1);
+}
+
+void Sparse_Graph::replace_vertex_id(std::string old_id, std::string new_id){
+    for(auto& pair: vertex_map){
+        Vertex& v = pair.second;
+        v.replace_neighbor_alias(old_id, new_id);
+    }
+}
+
+void Sparse_Graph::remove_vertex(std::string vertex_id){
+    vertex_map.erase(vertex_id);
+}
