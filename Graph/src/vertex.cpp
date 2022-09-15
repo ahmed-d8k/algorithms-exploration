@@ -17,7 +17,7 @@ void Vertex::add_neighbors(std::vector<std::string> neighbor_vec){
 }
 
 void Vertex::transfer_neighbors(Vertex v){
-    this->add_neighbors(v.adjacent_vec);
+    add_neighbors(v.adjacent_vec);
 }
 
 bool Vertex::already_has_this_neighbor(std::string neighbor_id){
@@ -50,4 +50,8 @@ void Vertex::replace_neighbor_alias(std::string old_id, std::string new_id){
             *adjacent_it = new_id;
         }
     }
+}
+
+int Vertex::edge_count(){
+    return adjacent_vec.size();
 }

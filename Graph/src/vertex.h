@@ -17,6 +17,7 @@ class Vertex{
         bool already_has_this_neighbor(std::string neighbor_id);
         void remove_neighbor(std::string neighbor_id);
         void replace_neighbor_alias(std::string old_id, std::string new_id);
+        int edge_count();
 };
 
 #endif

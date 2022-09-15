@@ -6,6 +6,7 @@
 class Test_File_Reader: Test{
     public:
         void test_get_int_vector_from_file();
+        void test_get_2d_str_vector_from_file();
         virtual void execute_tests();
 };
 #endif

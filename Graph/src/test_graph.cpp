@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <map>
 
 #include "test_graph.h"
 #include "sparse_graph.h"
@@ -14,6 +15,48 @@ void Test_Graph::test_sparse_graph(){
     test_add_vertex();
     test_add_neighbor();
     test_merge_vertex();
+    test_get_map_size();
+    test_2d_word_into_graph();
+}
+
+void Test_Graph::test_2d_word_into_graph(){
+    std::vector<std::vector<std::string>> word_2d_sample = {{"1","4", "5"}, {"4", "5", "1"}, {"5", "1", "4"}};
+    Sparse_Graph a(word_2d_sample);
+    std::map<std::string, Vertex>::iterator map_iter = a.vertex_map.begin();
+
+    std::string vertex_id = map_iter->first;
+    Vertex& v = map_iter->second;
+
+    assert(vertex_id == "1");
+    assert(v.already_has_this_neighbor("4") == true);
+    assert(v.already_has_this_neighbor("5") == true);
+
+    map_iter++;
+    vertex_id = map_iter->first;
+    v = map_iter->second; 
+
+    assert(vertex_id == "4");
+    assert(v.already_has_this_neighbor("5") == true);
+    assert(v.already_has_this_neighbor("1") == true);
+
+    map_iter++;
+    vertex_id = map_iter->first;
+    v = map_iter->second; 
+
+    assert(vertex_id == "5");
+    assert(v.already_has_this_neighbor("1") == true);
+    assert(v.already_has_this_neighbor("4") == true);
+}
+
+void Test_Graph::test_get_map_size(){
+    Sparse_Graph a;
+    assert(a.get_vertex_count() == 0);
+    a.add_vertex("1");
+    assert(a.get_vertex_count() == 1);
+    a.add_vertex("2");
+    assert(a.get_vertex_count() == 2);
+    a.remove_vertex("1");
+    assert(a.get_vertex_count() == 1);
 }
 
 void Test_Graph::test_add_neighbor(){
