@@ -64,13 +64,8 @@ bool Sparse_Graph::vertex_exists(std::string id){
 void Sparse_Graph::add_neighbor_to_vertex(std::string neighbor_id, std::string vertex_id){
     Vertex& new_neighbor = vertex_map[neighbor_id];
     Vertex& specified_vertex = vertex_map[vertex_id];
-    if(specified_vertex.already_has_this_neighbor(neighbor_id)){
-        return;
-    }
-    else{
-        specified_vertex.add_neighbor(neighbor_id);
-        new_neighbor.add_neighbor(vertex_id);
-    }
+    specified_vertex.add_neighbor(neighbor_id);
+    new_neighbor.add_neighbor(vertex_id);
 }
 
 void Sparse_Graph::merge_vertexes(std::string vertex1, std::string vertex2){
@@ -106,7 +101,10 @@ int Sparse_Graph::get_first_vertex_edge_count(){
 
 void Sparse_Graph::random_merge(){
     int rand_vert_ind1 = (rand() % vertex_map.size());
-    int rand_vert_ind2 = (rand() % vertex_map.size());
+    int rand_vert_ind2 = rand_vert_ind1;
+    while(rand_vert_ind2 == rand_vert_ind1){
+        rand_vert_ind2 = (rand() % vertex_map.size());
+    }
     std::string vertex_id1 = std::next(std::begin(vertex_map), rand_vert_ind1)->first; 
     std::string vertex_id2 = std::next(std::begin(vertex_map), rand_vert_ind2)->first; 
     merge_vertexes(vertex_id1, vertex_id2);

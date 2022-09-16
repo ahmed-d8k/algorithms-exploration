@@ -78,16 +78,24 @@ void Test_Graph::test_add_vertex(){
 
 void Test_Graph::test_merge_vertex(){
     Sparse_Graph a;
+
     a.add_vertex("1");
     a.add_vertex("2");
     a.add_vertex("3");
+
+    a.add_neighbor_to_vertex("2", "1");
     a.add_neighbor_to_vertex("2", "1");
     a.add_neighbor_to_vertex("3", "2");
+    a.add_neighbor_to_vertex("3", "2");
+    
     a.merge_vertexes("1", "2");
+
     assert(a.vertex_exists("1") == true);
     assert(a.vertex_exists("2") == false);
+
     Vertex& v1 = a.vertex_map["1"];
     Vertex& v3 = a.vertex_map["3"];
-    assert(v1.already_has_this_neighbor("3") == true);
-    assert(v3.already_has_this_neighbor("1") == true);
+
+    assert(v1.already_has_this_neighbor("2") == false);
+    assert(v3.already_has_this_neighbor("2") == false);
 }

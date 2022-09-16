@@ -1,3 +1,4 @@
+#include <iostream>
 
 #include "../../../Graph/src/sparse_graph.h"
 #include "min_cut.h"
@@ -10,6 +11,10 @@ int Min_Cut::min_cut(Sparse_Graph g, int iterations){
     int min_cut_count = 100000000; 
     int curr_cut_count = 0;
     for(int i = 0; i < epochs; i++){
+        if(i % 1000 == 0){
+            std::cout << "Iteration Number: " << i << "\n";
+            std::cout << "Current Min Cut: " << min_cut_count << "\n";
+        }
         intermediate_graph = g;
         do_min_cut();
         curr_cut_count = get_min_cut();
