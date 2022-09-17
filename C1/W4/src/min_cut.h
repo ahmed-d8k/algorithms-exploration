@@ -8,7 +8,7 @@ class Min_Cut{
         Sparse_Graph intermediate_graph;
     public:
         Min_Cut();
-        int min_cut(Sparse_Graph g, int iterations);
+        int min_cut(std::string file, int iterations);
         void do_min_cut();
         void random_merge();
         int get_min_cut();

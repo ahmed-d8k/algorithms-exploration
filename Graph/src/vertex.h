@@ -7,16 +7,17 @@
 class Vertex{
     private:
         std::string id;
-        std::vector<std::string> adjacent_vec;
+        std::vector<Vertex*> adjacent_vec;
     public:
         Vertex();
         Vertex(std::string id);
-        void add_neighbors(std::vector<std::string> neighor_vec);
-        void add_neighbor(std::string neighbor_id);
-        void transfer_neighbors(Vertex v);
-        bool already_has_this_neighbor(std::string neighbor_id);
+        void add_neighbors(std::vector<Vertex*> neighor_vec);
+        void add_neighbor(Vertex* neighbor);
+        void add_neighbor_one_way(Vertex* neighbor);
+        void transfer_neighbors(Vertex* v);
+        bool already_has_this_neighbor(Vertex& neighbor);
         void remove_neighbor(std::string neighbor_id);
-        void replace_neighbor_alias(std::string old_id, std::string new_id);
+        void replace_vertex_alias(std::string new_id);
         int edge_count();
 };
 

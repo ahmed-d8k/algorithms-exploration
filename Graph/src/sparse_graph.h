@@ -10,10 +10,11 @@
 
 class Sparse_Graph: Graph{
     private:
-        std::map<std::string, Vertex> vertex_map;
+        std::map<std::string, Vertex*> vertex_map;
     public:
         Sparse_Graph();
         Sparse_Graph(std::vector<std::vector<std::string>> word_2d_vec);
+        void destroy();
         Sparse_Graph& operator= (Sparse_Graph& g);
         int get_vertex_count();
         void add_neighbor_one_way(std::string neighbor_id, std::string vertex_id);

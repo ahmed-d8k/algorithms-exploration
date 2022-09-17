@@ -28,13 +28,23 @@ Sparse_Graph::Sparse_Graph(std::vector<std::vector<std::string>> word_2d_vec){
     }
 }
 
+void Sparse_Graph::destroy(){
+    for(auto pair: vertex_map){
+        Vertex* v = pair.second;
+        delete v;
+    }
+}
+
 void Sparse_Graph::add_neighbor_one_way(std::string neighbor_id, std::string vertex_id){
-    Vertex& specified_vertex = vertex_map[vertex_id];
-    specified_vertex.add_neighbor(neighbor_id);
+    Vertex* specified_vertex = vertex_map[vertex_id];
+    add_vertex(neighbor_id);
+
+    Vertex* new_neighbor = vertex_map[neighbor_id];
+    specified_vertex->add_neighbor_one_way(new_neighbor);
 }
 
 Sparse_Graph& Sparse_Graph::operator= (Sparse_Graph& g){
-    vertex_map.clear();
+    //vertex_map.clear();
     vertex_map = g.vertex_map;
     return *this;
 }
@@ -47,8 +57,8 @@ void Sparse_Graph::add_vertex(std::string id){
     if(vertex_exists(id)){
         return;
     }
-    Vertex v(id);
-    std::pair<std::string, Vertex> p(id, v);
+    Vertex* v = new Vertex(id);
+    std::pair<std::string, Vertex*> p(id, v);
     vertex_map.insert(p);
 }
 
@@ -62,40 +72,44 @@ bool Sparse_Graph::vertex_exists(std::string id){
 }
 
 void Sparse_Graph::add_neighbor_to_vertex(std::string neighbor_id, std::string vertex_id){
-    Vertex& new_neighbor = vertex_map[neighbor_id];
-    Vertex& specified_vertex = vertex_map[vertex_id];
-    specified_vertex.add_neighbor(neighbor_id);
-    new_neighbor.add_neighbor(vertex_id);
+    add_vertex(neighbor_id);
+    add_vertex(vertex_id);
+
+    Vertex* new_neighbor = vertex_map[neighbor_id];
+    Vertex* specified_vertex = vertex_map[vertex_id];
+    specified_vertex->add_neighbor(new_neighbor);
 }
 
-void Sparse_Graph::merge_vertexes(std::string vertex1, std::string vertex2){
-    Vertex& v1 = vertex_map[vertex1];
-    Vertex& v2 = vertex_map[vertex2];
+void Sparse_Graph::merge_vertexes(std::string vertex1_id, std::string vertex2_id){
+    Vertex* v1 = vertex_map[vertex1_id];
+    Vertex* v2 = vertex_map[vertex2_id];
 
-    v1.remove_neighbor(vertex2);
-    v2.remove_neighbor(vertex1);
+    v1->remove_neighbor(vertex2_id);
+    v2->remove_neighbor(vertex1_id);
 
-    v1.transfer_neighbors(v2);
+    v1->transfer_neighbors(v2);
 
-    remove_vertex(vertex2);
+    remove_vertex(vertex2_id);
 
-    replace_vertex_id(vertex2, vertex1);
+    v2->replace_vertex_alias(vertex1_id);
+
 }
 
-void Sparse_Graph::replace_vertex_id(std::string old_id, std::string new_id){
-    for(auto& pair: vertex_map){
-        Vertex& v = pair.second;
-        v.replace_neighbor_alias(old_id, new_id);
-    }
-}
+//Deprecate
+//void Sparse_Graph::replace_vertex_id(std::string old_id, std::string new_id){
+//    for(auto& pair: vertex_map){
+//        Vertex& v = pair.second;
+//        v.replace_neighbor_alias(old_id, new_id);
+//    }
+//}
 
 void Sparse_Graph::remove_vertex(std::string vertex_id){
     vertex_map.erase(vertex_id);
 }
 
 int Sparse_Graph::get_first_vertex_edge_count(){
-    Vertex& v1 = vertex_map.begin()->second;
-    int edge_count = v1.edge_count();
+    Vertex* v1 = vertex_map.begin()->second;
+    int edge_count = v1->edge_count();
     return edge_count;
 }
 
