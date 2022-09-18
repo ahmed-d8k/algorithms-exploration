@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "vertex.h"
 
 Vertex::Vertex(){}
@@ -58,6 +60,16 @@ void Vertex::replace_vertex_alias(std::string new_id){
     //        *adjacent_it = new_id;
     //    }
     //}
+    std::string old_id = id;
+    for(Vertex* v: adjacent_vec){
+        for(Vertex* v: v->adjacent_vec){
+
+            std::string curr_id = v->id; 
+            if(curr_id == old_id){
+                v->id = new_id;
+            }
+        }
+    }
     id = new_id;
 }
 

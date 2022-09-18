@@ -113,14 +113,28 @@ int Sparse_Graph::get_first_vertex_edge_count(){
     return edge_count;
 }
 
+
+//Currently chooses vertexes that don't actually have an edge together, fix?
+
 void Sparse_Graph::random_merge(){
     int rand_vert_ind1 = (rand() % vertex_map.size());
+    std::string vertex_id1 = std::next(std::begin(vertex_map), rand_vert_ind1)->first; 
+    std::string vertex_id2;
+    Vertex* v1 = vertex_map[vertex_id1];
     int rand_vert_ind2 = rand_vert_ind1;
     while(rand_vert_ind2 == rand_vert_ind1){
         rand_vert_ind2 = (rand() % vertex_map.size());
+        vertex_id2 = std::next(std::begin(vertex_map), rand_vert_ind2)->first; 
+        Vertex* v2 = vertex_map[vertex_id2];
+        if(v1->already_has_this_neighbor(*v2)){
+            //do nothing
+        }
+        else{
+            rand_vert_ind2 = rand_vert_ind1;
+        }
     }
-    std::string vertex_id1 = std::next(std::begin(vertex_map), rand_vert_ind1)->first; 
-    std::string vertex_id2 = std::next(std::begin(vertex_map), rand_vert_ind2)->first; 
+    //std::string vertex_id1 = std::next(std::begin(vertex_map), rand_vert_ind1)->first; 
+    //std::string vertex_id2 = std::next(std::begin(vertex_map), rand_vert_ind2)->first; 
     merge_vertexes(vertex_id1, vertex_id2);
 }
 
