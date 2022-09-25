@@ -4,8 +4,9 @@
 #include "../../Test/src/test.h"
 
 class Test_Sparse_Digraph: Test{
-
-
+    public:
+        void execute_tests();
+        void test_sparse_digraph();
 };
 
 #endif
