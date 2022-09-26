@@ -5,29 +5,34 @@
 
 Divertex::Divertex(std::string id):
     id(id),
-    visited(false)
+    visited(false),
+    finishing_time(0)
     {}
 
 void Divertex::add_path(Divertex* neighbor){
     paths.push_back(neighbor);
+    neighbor->inverse_paths.push_back(this);
 }
 
-/*  Slight issue with this implementation it will remove all paths not just one
+/*  
+    Slight issue with this implementation it will remove all paths not just one
     may go unnoticed tho since redundant paths are not useful in algo
 */
+
 void Divertex::remove_path(Divertex* neighbor){
     paths.erase(std::remove(paths.begin(), paths.end(), neighbor), paths.end()); 
+    neighbor->remove_inverse_path(this);
 }
 
+void Divertex::remove_inverse_path(Divertex* inverse_neighbor){
+    inverse_paths.erase(std::remove(paths.begin(), paths.end(), inverse_neighbor), paths.end()); 
+} 
+
 void Divertex::invert_path(Divertex* neighbor){
-    neighbor->add_path(this);
-    remove_path(neighbor);
 }
 
 void Divertex::invert_paths(){
-    for(Divertex* neighbor: paths){
-        invert_path(neighbor);
-    }
+    paths.swap(inverse_paths);
 }
 
 void Divertex::discovered(){
@@ -36,4 +41,16 @@ void Divertex::discovered(){
 
 bool Divertex::is_discovered(){
     return visited;
+}
+
+void Divertex::set_finishing_time(int f_time){
+    finishing_time = f_time;
+
+}
+
+bool Divertex::has_path_to(Divertex* neighbor){
+    if (std::find(paths.begin(), paths.end(), neighbor) != paths.end() )
+        return true;
+    else
+        return false;
 }
