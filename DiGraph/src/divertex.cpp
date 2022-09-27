@@ -3,7 +3,7 @@
 
 #include "divertex.h"
 
-Divertex::Divertex(std::string id):
+Divertex::Divertex(int id):
     id(id),
     visited(false),
     finishing_time(0)

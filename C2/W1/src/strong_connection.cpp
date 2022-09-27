@@ -8,5 +8,5 @@ Strong_Connection::Strong_Connection(Sparse_Digraph& g):
     {}
 
 void Strong_Connection::find_finishing_times(){
-
+    
 }

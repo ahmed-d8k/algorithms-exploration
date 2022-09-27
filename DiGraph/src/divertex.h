@@ -6,13 +6,13 @@
 
 class Divertex{
     private:
-        std::string id;
+        int id;
         std::vector<Divertex*> paths;
         std::vector<Divertex*> inverse_paths;
         bool visited;
         int finishing_time;
     public:
-        Divertex(std::string id);
+        Divertex(int id);
         int get_finishing_time();
         void add_path(Divertex* neighbor);
         void add_inverse_path(Divertex* neighbor);

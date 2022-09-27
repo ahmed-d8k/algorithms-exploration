@@ -14,41 +14,42 @@ void Test_Strong_Connection::execute_tests(){
 
 void Test_Strong_Connection::test_finishing_times(){
     Sparse_Digraph a;
-    a.add_divertex("1");
-    a.add_divertex("2");
-    a.add_divertex("3");
-    a.add_divertex("4");
-    a.add_divertex("5");
-    a.add_divertex("6");
-    a.add_divertex("7");
-    a.add_divertex("8");
-    a.add_divertex("9");
+    a.add_divertex(1);
+    a.add_divertex(2);
+    a.add_divertex(3);
+    a.add_divertex(4);
+    a.add_divertex(5);
+    a.add_divertex(6);
+    a.add_divertex(7);
+    a.add_divertex(8);
+    a.add_divertex(9);
+    a.add_divertex(10);
 
-    a.connect_head_to_tail("1", "7");
-    a.connect_head_to_tail("7", "4");
-    a.connect_head_to_tail("4", "1");
-    a.connect_head_to_tail("7", "9");
-    a.connect_head_to_tail("9", "6");
-    a.connect_head_to_tail("6", "3");
-    a.connect_head_to_tail("3", "9");
-    a.connect_head_to_tail("6", "8");
-    a.connect_head_to_tail("8", "2");
-    a.connect_head_to_tail("2", "5");
-    a.connect_head_to_tail("5", "8");
+    a.connect_head_to_tail(1, 7);
+    a.connect_head_to_tail(7, 4);
+    a.connect_head_to_tail(4, 1);
+    a.connect_head_to_tail(7, 9);
+    a.connect_head_to_tail(9, 6);
+    a.connect_head_to_tail(6, 3);
+    a.connect_head_to_tail(3, 9);
+    a.connect_head_to_tail(6, 8);
+    a.connect_head_to_tail(8, 2);
+    a.connect_head_to_tail(2, 5);
+    a.connect_head_to_tail(5, 8);
 
     //Finishing time code;
     Strong_Connection alg(a);
     alg.find_finishing_times(); 
 
-    Divertex* v1 = a.divert_map["1"];
-    Divertex* v2 = a.divert_map["2"];
-    Divertex* v3 = a.divert_map["3"];
-    Divertex* v4 = a.divert_map["4"];
-    Divertex* v5 = a.divert_map["5"];
-    Divertex* v6 = a.divert_map["6"];
-    Divertex* v7 = a.divert_map["7"];
-    Divertex* v8 = a.divert_map["8"];
-    Divertex* v9 = a.divert_map["9"];
+    Divertex* v1 = a.divert_map[1];
+    Divertex* v2 = a.divert_map[2];
+    Divertex* v3 = a.divert_map[3];
+    Divertex* v4 = a.divert_map[4];
+    Divertex* v5 = a.divert_map[5];
+    Divertex* v6 = a.divert_map[6];
+    Divertex* v7 = a.divert_map[7];
+    Divertex* v8 = a.divert_map[8];
+    Divertex* v9 = a.divert_map[9];
 
     assert(v1->get_finishing_time() == 7);
     assert(v2->get_finishing_time() == 3);
@@ -64,26 +65,26 @@ void Test_Strong_Connection::test_finishing_times(){
 
 void Test_Strong_Connection::test_find_strong_connections(){
     Sparse_Digraph a;
-    a.add_divertex("1");
-    a.add_divertex("2");
-    a.add_divertex("3");
-    a.add_divertex("4");
-    a.add_divertex("5");
-    a.add_divertex("6");
-    a.add_divertex("7");
-    a.add_divertex("8");
-    a.add_divertex("9");
+    a.add_divertex(1);
+    a.add_divertex(2);
+    a.add_divertex(3);
+    a.add_divertex(4);
+    a.add_divertex(5);
+    a.add_divertex(6);
+    a.add_divertex(7);
+    a.add_divertex(8);
+    a.add_divertex(9);
+    a.add_divertex(10);
 
-    a.connect_head_to_tail("1", "7");
-    a.connect_head_to_tail("7", "4");
-    a.connect_head_to_tail("4", "1");
-    a.connect_head_to_tail("7", "9");
-    a.connect_head_to_tail("9", "6");
-    a.connect_head_to_tail("6", "3");
-    a.connect_head_to_tail("3", "9");
-    a.connect_head_to_tail("6", "8");
-    a.connect_head_to_tail("8", "2");
-    a.connect_head_to_tail("2", "5");
-    a.connect_head_to_tail("5", "8");
-
+    a.connect_head_to_tail(1, 7);
+    a.connect_head_to_tail(7, 4);
+    a.connect_head_to_tail(4, 1);
+    a.connect_head_to_tail(7, 9);
+    a.connect_head_to_tail(9, 6);
+    a.connect_head_to_tail(6, 3);
+    a.connect_head_to_tail(3, 9);
+    a.connect_head_to_tail(6, 8);
+    a.connect_head_to_tail(8, 2);
+    a.connect_head_to_tail(2, 5);
+    a.connect_head_to_tail(5, 8);
 }

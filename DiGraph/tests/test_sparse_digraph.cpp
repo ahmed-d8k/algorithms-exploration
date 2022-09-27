@@ -17,12 +17,12 @@ void Test_Sparse_Digraph::test_sparse_digraph(){
 
 void Test_Sparse_Digraph::test_basics(){
     Sparse_Digraph a;
-    a.add_divertex("1");
-    a.add_divertex("2");
-    a.connect_head_to_tail("1","2");
+    a.add_divertex(1);
+    a.add_divertex(2);
+    a.connect_head_to_tail(1,2);
     
-    Divertex* v1 = a.divert_map["1"]; 
-    Divertex* v2 = a.divert_map["2"];
+    Divertex* v1 = a.divert_map[1]; 
+    Divertex* v2 = a.divert_map[2];
 
     assert(v1->has_path_to(v2) == true);
     assert(v2->has_path_to(v1) == false);
@@ -31,12 +31,12 @@ void Test_Sparse_Digraph::test_basics(){
 
 void Test_Sparse_Digraph::test_reverse(){
     Sparse_Digraph a;
-    a.add_divertex("1");
-    a.add_divertex("2");
-    a.connect_head_to_tail("1","2");
+    a.add_divertex(1);
+    a.add_divertex(2);
+    a.connect_head_to_tail(1,2);
     
-    Divertex* v1 = a.divert_map["1"]; 
-    Divertex* v2 = a.divert_map["2"];
+    Divertex* v1 = a.divert_map[1]; 
+    Divertex* v2 = a.divert_map[2];
 
     assert(v1->has_inverse_path_to(v2) == false);
     assert(v2->has_inverse_path_to(v1) == true);

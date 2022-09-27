@@ -6,16 +6,16 @@ Sparse_Digraph::Sparse_Digraph(){}
 Sparse_Digraph::Sparse_Digraph(std::vector<std::vector<std::string>> word_2d_vec){
     for(std::vector<std::string> word_vec: word_2d_vec){
         bool first_ele = true;
-        std::string vertex_id;
-        std::string neighbor_id;
+        int vertex_id;
+        int neighbor_id;
         for(std::string word: word_vec){
             if(first_ele){
-                vertex_id = word;
+                vertex_id = std::stoi(word);
                 add_divertex(vertex_id);
                 first_ele = false;
             }
             else{
-                neighbor_id = word;
+                neighbor_id = std::stoi(word);
                 add_divertex(vertex_id);
                 connect_head_to_tail(neighbor_id, vertex_id);
             }
@@ -23,29 +23,29 @@ Sparse_Digraph::Sparse_Digraph(std::vector<std::vector<std::string>> word_2d_vec
     }
 }
 
-void Sparse_Digraph::add_divertex(std::string divertex_id){
+void Sparse_Digraph::add_divertex(int divertex_id){
     if(divertex_exists(divertex_id)){
         return;
     }
     else{
         Divertex* v = create_new_divertex(divertex_id);
-        std::pair<std::string, Divertex*> p(divertex_id, v);
+        std::pair<int, Divertex*> p(divertex_id, v);
         divert_map.insert(p);
     }
 
 }
 
-Divertex* Sparse_Digraph::create_new_divertex(std::string id){
+Divertex* Sparse_Digraph::create_new_divertex(int id){
     Divertex* new_divert = new Divertex(id);
     //static_divert_ref.push_back(new_divert);
     return new_divert;
 }
 
-void Sparse_Digraph::remove_divertex(std::string divertex_id){
+void Sparse_Digraph::remove_divertex(int divertex_id){
     divert_map.erase(divertex_id);
 }
 
-void Sparse_Digraph::connect_head_to_tail(std::string head, std::string tail){
+void Sparse_Digraph::connect_head_to_tail(int head, int tail){
     if(divertex_exists(head) && divertex_exists(tail)){
         Divertex* divert_head = divert_map[head];
         Divertex* divert_tail = divert_map[tail];
@@ -57,7 +57,7 @@ void Sparse_Digraph::connect_head_to_tail(std::string head, std::string tail){
 
 }
 
-bool Sparse_Digraph::divertex_exists(std::string divertex_id){
+bool Sparse_Digraph::divertex_exists(int divertex_id){
     if(divert_map.find(divertex_id) != divert_map.end()){
         return true;
     }

@@ -1,5 +1,5 @@
 CC = g++
-CLFAGS = -Wall -g3 -static
+CFLAGS = -Wall -g3 -static
 
 main: main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o
 	$(CC) $(CFLAGS) -o output main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o
