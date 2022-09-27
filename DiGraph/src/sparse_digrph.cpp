@@ -1,6 +1,6 @@
 #include "sparse_digrph.h"
 
-std::vector<Divertex*> Sparse_Digraph::static_divert_ref = {};
+std::vector<Divertex*> Sparse_Digraph::static_divert_ref;
 Sparse_Digraph::Sparse_Digraph(){}
 
 Sparse_Digraph::Sparse_Digraph(std::vector<std::vector<std::string>> word_2d_vec){
@@ -37,7 +37,7 @@ void Sparse_Digraph::add_divertex(std::string divertex_id){
 
 Divertex* Sparse_Digraph::create_new_divertex(std::string id){
     Divertex* new_divert = new Divertex(id);
-    static_divert_ref.push_back(new_divert);
+    //static_divert_ref.push_back(new_divert);
     return new_divert;
 }
 

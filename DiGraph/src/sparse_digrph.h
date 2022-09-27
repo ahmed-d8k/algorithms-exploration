@@ -7,12 +7,13 @@
 
 #include "divertex.h"
 #include "../tests/test_sparse_digraph.h"
+#include "../../C2/W1/tests/test_strong_connection.h"
 
 class Sparse_Digraph{
     private:
+        static std::vector<Divertex*> static_divert_ref;
         std::map<std::string, Divertex*> divert_map;
     public:
-        static std::vector<Divertex*> static_divert_ref;
         Sparse_Digraph();
         Sparse_Digraph(std::vector<std::vector<std::string>>);
         Divertex* create_new_divertex(std::string id);
@@ -22,7 +23,8 @@ class Sparse_Digraph{
         bool divertex_exists(std::string divertex_id);
         void reverse_graph();
 
-       friend Test_Sparse_Digraph; 
+        friend Test_Strong_Connection; 
+        friend Test_Sparse_Digraph; 
 };
 
 #endif

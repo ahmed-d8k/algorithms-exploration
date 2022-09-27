@@ -10,8 +10,15 @@ Divertex::Divertex(std::string id):
     {}
 
 void Divertex::add_path(Divertex* neighbor){
+    if(has_path_to(neighbor)){
+        return;
+    }
     paths.push_back(neighbor);
-    neighbor->inverse_paths.push_back(this);
+    neighbor->add_inverse_path(this);
+}
+
+void Divertex::add_inverse_path(Divertex* inverse_neighbor){
+    inverse_paths.push_back(inverse_neighbor);
 }
 
 /*  
@@ -53,4 +60,17 @@ bool Divertex::has_path_to(Divertex* neighbor){
         return true;
     else
         return false;
+}
+
+bool Divertex::has_inverse_path_to(Divertex* reverse_neighbor){
+    if(std::find(inverse_paths.begin(), inverse_paths.end(), reverse_neighbor) != inverse_paths.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+int Divertex::get_finishing_time(){
+    return finishing_time;
 }

@@ -7,6 +7,7 @@ class Test_Strong_Connection: Test{
     private:
     public:
         void virtual execute_tests();
+        void test_finishing_times();
         void test_find_strong_connections();
 
 };
