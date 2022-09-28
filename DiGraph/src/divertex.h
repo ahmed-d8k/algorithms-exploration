@@ -25,7 +25,6 @@ class Divertex{
         void set_finishing_time(int f_time);
         bool has_path_to(Divertex* neighbor);
         bool has_inverse_path_to(Divertex* neighbor);
-
 };
 
 #endif

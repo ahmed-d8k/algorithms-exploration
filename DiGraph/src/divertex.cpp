@@ -3,6 +3,8 @@
 
 #include "divertex.h"
 
+static Divertex::null_divertex = Divertex(-1);
+
 Divertex::Divertex(int id):
     id(id),
     visited(false),

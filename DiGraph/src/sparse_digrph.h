@@ -22,6 +22,8 @@ class Sparse_Digraph{
         void connect_head_to_tail(int head, int tail);
         bool divertex_exists(int divertex_id);
         void reverse_graph();
+        int get_divert_count();
+        Divertex* get_divert(int id);
 
         friend Test_Strong_Connection; 
         friend Test_Sparse_Digraph; 

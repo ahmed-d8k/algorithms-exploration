@@ -35,6 +35,14 @@ void Sparse_Digraph::add_divertex(int divertex_id){
 
 }
 
+int Sparse_Digraph::get_divert_count(){
+    return divert_map.size();
+}
+
+Divertex* Sparse_Digraph::get_divert(int id){
+    return divert_map[id];
+}
+
 Divertex* Sparse_Digraph::create_new_divertex(int id){
     Divertex* new_divert = new Divertex(id);
     //static_divert_ref.push_back(new_divert);
