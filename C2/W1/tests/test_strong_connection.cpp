@@ -23,7 +23,6 @@ void Test_Strong_Connection::test_finishing_times(){
     a.add_divertex(7);
     a.add_divertex(8);
     a.add_divertex(9);
-    a.add_divertex(10);
 
     a.connect_head_to_tail(1, 7);
     a.connect_head_to_tail(7, 4);

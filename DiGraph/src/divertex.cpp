@@ -3,12 +3,12 @@
 
 #include "divertex.h"
 
-static Divertex::null_divertex = Divertex(-1);
 
 Divertex::Divertex(int id):
     id(id),
     visited(false),
-    finishing_time(0)
+    finishing_time(0),
+    undiscovered_neighbors(true)
     {}
 
 void Divertex::add_path(Divertex* neighbor){
@@ -21,6 +21,16 @@ void Divertex::add_path(Divertex* neighbor){
 
 void Divertex::add_inverse_path(Divertex* inverse_neighbor){
     inverse_paths.push_back(inverse_neighbor);
+}
+
+void Divertex::add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s){
+    undiscovered_neighbors = false;
+    for(Divertex* curr_neighbor: paths){
+        if(curr_neighbor->undiscovered()){
+            s.push(curr_neighbor);
+            undiscovered_neighbors = true;
+        }
+    }
 }
 
 /*  
@@ -44,11 +54,11 @@ void Divertex::invert_paths(){
     paths.swap(inverse_paths);
 }
 
-void Divertex::discovered(){
+void Divertex::discover(){
     visited=true;
 }
 
-bool Divertex::is_discovered(){
+bool Divertex::discovered(){
     return visited;
 }
 
@@ -75,4 +85,30 @@ bool Divertex::has_inverse_path_to(Divertex* reverse_neighbor){
 
 int Divertex::get_finishing_time(){
     return finishing_time;
+}
+
+bool Divertex::all_neighbors_discovered(){
+    for(Divertex* curr_neighbor: paths){
+        if(curr_neighbor->discovered()){
+
+        } 
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Divertex::undiscovered(){
+    if(visited == false){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+/* Refers to the last time add_undiscovered_neighbors_to_stack was called */
+bool Divertex::had_undiscovered_neighbors(){
+    return undiscovered_neighbors;
 }

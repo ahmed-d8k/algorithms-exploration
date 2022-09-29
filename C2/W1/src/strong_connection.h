@@ -13,6 +13,7 @@ class Strong_Connection{
         std::stack<Divertex*> divert_stack;
         std::map<int, Divertex*> finish_map;
         int proccessed_divert_count;
+        int curr_finishing_time;
     public:
         Strong_Connection(Sparse_Digraph& g);
         void add_divertex(Divertex* divert);

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <stack>
 
 class Divertex{
     private:
@@ -11,6 +12,7 @@ class Divertex{
         std::vector<Divertex*> inverse_paths;
         bool visited;
         int finishing_time;
+        bool undiscovered_neighbors;
     public:
         Divertex(int id);
         int get_finishing_time();
@@ -20,11 +22,15 @@ class Divertex{
         void remove_inverse_path(Divertex* inverse_neighbor);
         void invert_path(Divertex* neighbor);
         void invert_paths();
-        void discovered();
-        bool is_discovered();
+        void discover();
+        bool discovered();
+        bool undiscovered();
         void set_finishing_time(int f_time);
+        void add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s);
         bool has_path_to(Divertex* neighbor);
         bool has_inverse_path_to(Divertex* neighbor);
+        bool all_neighbors_discovered();
+        bool had_undiscovered_neighbors();
 };
 
 #endif
