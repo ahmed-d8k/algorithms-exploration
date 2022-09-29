@@ -62,6 +62,15 @@ bool Divertex::discovered(){
     return visited;
 }
 
+bool Divertex::undiscovered(){
+    if(visited == false){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 void Divertex::set_finishing_time(int f_time){
     finishing_time = f_time;
 
@@ -99,14 +108,6 @@ bool Divertex::all_neighbors_discovered(){
     return true;
 }
 
-bool Divertex::undiscovered(){
-    if(visited == false){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
 
 /* Refers to the last time add_undiscovered_neighbors_to_stack was called */
 bool Divertex::had_undiscovered_neighbors(){

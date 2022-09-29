@@ -24,6 +24,7 @@ class Divertex{
         void invert_paths();
         void discover();
         bool discovered();
+        bool unexplored();
         bool undiscovered();
         void set_finishing_time(int f_time);
         void add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s);

@@ -9,15 +9,15 @@ Strong_Connection::Strong_Connection(Sparse_Digraph& g):
     {}
 
 void Strong_Connection::find_finishing_times(){
-    int last_divert_id = g.get_divert_count() - 1;
+    int last_divert_id = g.get_divert_count();
     Divertex* last_divert = g.get_divert(last_divert_id);
     divert_stack.push(last_divert);
+    proccessed_divert_count = 0;
     curr_finishing_time = 1;
-
+    Divertex* curr_divert;
     while(unexplored_divertices()){
-        /* Do this add the next lowest unexplored divertex*/
         while(stack_full()){
-            Divertex* curr_divert = divert_stack.top();
+            curr_divert = divert_stack.top();
             curr_divert->discover();
             curr_divert->add_undiscovered_neighbors_to_stack(divert_stack);
             if(curr_divert->had_undiscovered_neighbors()){
@@ -31,6 +31,7 @@ void Strong_Connection::find_finishing_times(){
             }
             proccessed_divert_count++;
         }
+        divert_stack.push(g.get_next_highest_unexplored_divert());
     }
 }
 
@@ -50,11 +51,11 @@ bool Strong_Connection::stack_full(){
 }
 
 bool Strong_Connection::unexplored_divertices(){
-    if(proccessed_divert_count >= g.get_divert_count()){
-        return false;
+    if(g.get_next_highest_unexplored_divert() != nullptr){
+        return true;
     }
     else{
-        return true;
+        return false;
     }
 }
 

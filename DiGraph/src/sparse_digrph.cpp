@@ -35,6 +35,18 @@ void Sparse_Digraph::add_divertex(int divertex_id){
 
 }
 
+Divertex* Sparse_Digraph::get_next_highest_unexplored_divert(){
+   std::map<int, Divertex*>::reverse_iterator it = divert_map.rbegin(); 
+    while(it != divert_map.rend()){
+        Divertex* curr_divert =  it->second;
+        if(curr_divert->undiscovered()){
+            return curr_divert;
+        }
+        it++;
+    }
+    return nullptr;
+}
+
 int Sparse_Digraph::get_divert_count(){
     return divert_map.size();
 }

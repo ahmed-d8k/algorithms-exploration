@@ -17,6 +17,7 @@ class Sparse_Digraph{
         Sparse_Digraph();
         Sparse_Digraph(std::vector<std::vector<std::string>>);
         Divertex* create_new_divertex(int id);
+        Divertex* get_next_highest_unexplored_divert();
         void add_divertex(int divertex_id);
         void remove_divertex(int divertex_id);
         void connect_head_to_tail(int head, int tail);

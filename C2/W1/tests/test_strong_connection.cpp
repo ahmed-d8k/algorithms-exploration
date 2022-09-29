@@ -29,9 +29,9 @@ void Test_Strong_Connection::test_finishing_times(){
     a.connect_head_to_tail(4, 1);
     a.connect_head_to_tail(7, 9);
     a.connect_head_to_tail(9, 6);
-    a.connect_head_to_tail(6, 3);
     a.connect_head_to_tail(3, 9);
     a.connect_head_to_tail(6, 8);
+    a.connect_head_to_tail(6, 3);
     a.connect_head_to_tail(8, 2);
     a.connect_head_to_tail(2, 5);
     a.connect_head_to_tail(5, 8);
