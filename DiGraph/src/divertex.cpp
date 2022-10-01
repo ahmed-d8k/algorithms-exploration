@@ -33,6 +33,16 @@ void Divertex::add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s){
     }
 }
 
+void Divertex::add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s){
+    undiscovered_neighbors = false;
+    for(Divertex* curr_neighbor: inverse_paths){
+        if(curr_neighbor->undiscovered()){
+            s.push(curr_neighbor);
+            undiscovered_neighbors = true;
+        }
+    }
+}
+
 /*  
     Slight issue with this implementation it will remove all paths not just one
     may go unnoticed tho since redundant paths are not useful in algo
@@ -112,4 +122,8 @@ bool Divertex::all_neighbors_discovered(){
 /* Refers to the last time add_undiscovered_neighbors_to_stack was called */
 bool Divertex::had_undiscovered_neighbors(){
     return undiscovered_neighbors;
+}
+
+void Divertex::undiscover(){
+    visited = false;
 }

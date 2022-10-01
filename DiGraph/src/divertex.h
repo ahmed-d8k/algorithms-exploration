@@ -23,11 +23,13 @@ class Divertex{
         void invert_path(Divertex* neighbor);
         void invert_paths();
         void discover();
+        void undiscover();
         bool discovered();
         bool unexplored();
         bool undiscovered();
         void set_finishing_time(int f_time);
         void add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s);
+        void add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s);
         bool has_path_to(Divertex* neighbor);
         bool has_inverse_path_to(Divertex* neighbor);
         bool all_neighbors_discovered();

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <cassert>
 
 #include "../../../DiGraph/src/sparse_digrph.h"
@@ -8,6 +9,7 @@
 
 void Test_Strong_Connection::execute_tests(){
     test_finishing_times();
+    test_find_strong_connections();
 
     std::cout << "All strong connection tests finished succesfully.\n";
 }
@@ -73,7 +75,6 @@ void Test_Strong_Connection::test_find_strong_connections(){
     a.add_divertex(7);
     a.add_divertex(8);
     a.add_divertex(9);
-    a.add_divertex(10);
 
     a.connect_head_to_tail(1, 7);
     a.connect_head_to_tail(7, 4);
@@ -86,4 +87,13 @@ void Test_Strong_Connection::test_find_strong_connections(){
     a.connect_head_to_tail(8, 2);
     a.connect_head_to_tail(2, 5);
     a.connect_head_to_tail(5, 8);
+
+    Strong_Connection alg(a);
+    alg.find_strongly_connected_components();
+    std::vector<int> component_sizes = alg.get_component_sizes();
+
+    assert(component_sizes[0] == 3);
+    assert(component_sizes[1] == 3);
+    assert(component_sizes[2] == 3);
+
 }

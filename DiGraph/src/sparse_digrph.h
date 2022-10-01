@@ -25,6 +25,7 @@ class Sparse_Digraph{
         void reverse_graph();
         int get_divert_count();
         Divertex* get_divert(int id);
+        void undiscover_all();
 
         friend Test_Strong_Connection; 
         friend Test_Sparse_Digraph; 
