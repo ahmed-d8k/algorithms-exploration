@@ -1,5 +1,6 @@
 #include <map>
 #include <algorithm>
+#include <iostream>
 
 #include "strong_connection.h"
 #include "../../../DiGraph/src/sparse_digrph.h"
@@ -16,12 +17,25 @@ void Strong_Connection::find_finishing_times(){
     divert_stack.push(last_divert);
     curr_finishing_time = 1;
     Divertex* curr_divert;
+
+    double percent_done;
     while(unexplored_divertices()){
         while(stack_full()){
+            //Bug with adding things to stack
+            if((curr_finishing_time + 1) % 100){
+                percent_done = 100.0*curr_finishing_time/g.get_divert_count();
+                std::cout << "Finishing Time Value: " << curr_finishing_time << "\n";
+                std::cout << "Percent Done: " << percent_done  << "\n";
+            }
+
+
             curr_divert = divert_stack.top();
             curr_divert->discover();
             curr_divert->add_undiscovered_neighbors_to_stack(divert_stack);
-            if(curr_divert->had_undiscovered_neighbors()){
+            if(curr_divert->get_finishing_time() > 0){
+                divert_stack.pop();
+            }
+            else if(curr_divert->had_undiscovered_neighbors()){
 
             }
             else{

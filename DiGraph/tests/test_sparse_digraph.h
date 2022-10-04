@@ -9,6 +9,7 @@ class Test_Sparse_Digraph: Test{
         void test_sparse_digraph();
         void test_reverse();
         void test_basics();
+        void test_import();
 };
 
 #endif

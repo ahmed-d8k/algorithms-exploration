@@ -14,10 +14,10 @@ Sparse_Digraph::Sparse_Digraph(std::vector<std::vector<std::string>> word_2d_vec
                 add_divertex(vertex_id);
                 first_ele = false;
             }
-            else{
+            else{ // TODO: Failing test due to this code
                 neighbor_id = std::stoi(word);
-                add_divertex(vertex_id);
-                connect_head_to_tail(neighbor_id, vertex_id);
+                add_divertex(neighbor_id);
+                connect_head_to_tail(vertex_id, neighbor_id);
             }
         }
     }

@@ -85,6 +85,9 @@ void Divertex::set_finishing_time(int f_time){
     finishing_time = f_time;
 
 }
+int Divertex::get_finishing_time(){
+    return finishing_time;
+}
 
 bool Divertex::has_path_to(Divertex* neighbor){
     if (std::find(paths.begin(), paths.end(), neighbor) != paths.end() )
@@ -102,9 +105,6 @@ bool Divertex::has_inverse_path_to(Divertex* reverse_neighbor){
     }
 }
 
-int Divertex::get_finishing_time(){
-    return finishing_time;
-}
 
 bool Divertex::all_neighbors_discovered(){
     for(Divertex* curr_neighbor: paths){

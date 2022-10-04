@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -Wall -g3 -static
 
-main: main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o
-	$(CC) $(CFLAGS) -o output main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o
+main: main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o  file_reader.o
+	$(CC) $(CFLAGS) -o output main.o test_strong_connection.o strong_connection.o sparse_digrph.o divertex.o file_reader.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
@@ -18,3 +18,6 @@ sparse_digrph.o: ../../DiGraph/src/sparse_digrph.cpp
 
 divertex.o: ../../DiGraph/src/divertex.cpp
 	$(CC) $(CFLAGS) -c ../../DiGraph/src/divertex.cpp
+
+file_reader.o: ../../FileHandling/src/file_reader.cpp
+	$(CC) $(CFLAGS) -c ../../FileHandling/src/file_reader.cpp
