@@ -45,10 +45,10 @@ void Strong_Connection::find_finishing_times(){
                 std::cout << "Percent Done: " << percent_done  << "\n";
             }
 
-
+            
             curr_divert = divert_stack.top();
             curr_divert->discover();
-            curr_divert->add_undiscovered_neighbors_to_stack(divert_stack, process_map);
+            curr_divert->add_undiscovered_reverse_neighbors_to_stack(divert_stack, process_map);
             if(curr_divert->get_finishing_time() > 0 ){
                 divert_stack.pop();
             }
@@ -91,7 +91,7 @@ void Strong_Connection::find_strongly_connected_components(){
             }
             curr_divert = divert_stack.top();
             curr_divert->discover();
-            curr_divert->add_undiscovered_reverse_neighbors_to_stack(divert_stack, process_map);
+            curr_divert->add_undiscovered_neighbors_to_stack(divert_stack, process_map);
             if(curr_divert->had_undiscovered_neighbors()){
 
             }
