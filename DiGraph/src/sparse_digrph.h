@@ -11,11 +11,13 @@
 
 class Sparse_Digraph{
     private:
-        static std::vector<Divertex*> static_divert_ref;
         std::map<int, Divertex*> divert_map;
+        static std::vector<Divertex*> static_divert_ref;
+        std::map<int, Divertex*>::reverse_iterator unexplored_it;
     public:
         Sparse_Digraph();
         Sparse_Digraph(std::vector<std::vector<std::string>>);
+        void initialize_unexplored_it();
         Divertex* create_new_divertex(int id);
         Divertex* get_next_highest_unexplored_divert();
         void add_divertex(int divertex_id);
@@ -24,6 +26,7 @@ class Sparse_Digraph{
         bool divertex_exists(int divertex_id);
         void reverse_graph();
         int get_divert_count();
+        std::vector<Divertex*>& get_divert_ref();
         Divertex* get_divert(int id);
         void undiscover_all();
 

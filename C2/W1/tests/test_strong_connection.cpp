@@ -8,7 +8,7 @@
 #include "../src/strong_connection.h"
 
 void Test_Strong_Connection::execute_tests(){
-    test_finishing_times();
+    //test_finishing_times();
     test_find_strong_connections();
 
     std::cout << "All strong connection tests finished succesfully.\n";

@@ -28,8 +28,8 @@ class Divertex{
         bool unexplored();
         bool undiscovered();
         void set_finishing_time(int f_time);
-        void add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s);
-        void add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s);
+        void add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s, std::map<Divertex*, bool>& already_added_ref);
+        void add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s, std::map<Divertex*, bool>& already_added_ref);
         bool has_path_to(Divertex* neighbor);
         bool has_inverse_path_to(Divertex* neighbor);
         bool all_neighbors_discovered();

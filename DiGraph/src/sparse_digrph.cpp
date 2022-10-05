@@ -3,6 +3,10 @@
 std::vector<Divertex*> Sparse_Digraph::static_divert_ref;
 Sparse_Digraph::Sparse_Digraph(){}
 
+std::vector<Divertex*>& Sparse_Digraph::get_divert_ref(){
+    return static_divert_ref;
+}
+
 Sparse_Digraph::Sparse_Digraph(std::vector<std::vector<std::string>> word_2d_vec){
     for(std::vector<std::string> word_vec: word_2d_vec){
         bool first_ele = true;
@@ -35,14 +39,17 @@ void Sparse_Digraph::add_divertex(int divertex_id){
 
 }
 
+void Sparse_Digraph::initialize_unexplored_it(){
+    unexplored_it = divert_map.rbegin(); 
+}
+
 Divertex* Sparse_Digraph::get_next_highest_unexplored_divert(){
-   std::map<int, Divertex*>::reverse_iterator it = divert_map.rbegin(); 
-    while(it != divert_map.rend()){
-        Divertex* curr_divert =  it->second;
+    while(unexplored_it != divert_map.rend()){
+        Divertex* curr_divert =  unexplored_it->second;
         if(curr_divert->undiscovered()){
             return curr_divert;
         }
-        it++;
+        unexplored_it++;
     }
     return nullptr;
 }
@@ -66,7 +73,7 @@ Divertex* Sparse_Digraph::get_divert(int id){
 
 Divertex* Sparse_Digraph::create_new_divertex(int id){
     Divertex* new_divert = new Divertex(id);
-    //static_divert_ref.push_back(new_divert);
+    static_divert_ref.push_back(new_divert);
     return new_divert;
 }
 

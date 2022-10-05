@@ -8,7 +8,7 @@
 
 void print_top_five(std::vector<int> int_vec){
     for(int i = 0; i < 5; i++){
-        std::cout << "Top " << i << ": " << int_vec[i] << "\n.";
+        std::cout << "Top " << i << ": " << int_vec[i] << "\n";
     }
 }
 

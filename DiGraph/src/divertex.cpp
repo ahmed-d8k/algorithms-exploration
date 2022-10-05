@@ -1,7 +1,9 @@
 #include <string>
 #include <algorithm>
+#include <map>
 
 #include "divertex.h"
+
 
 
 Divertex::Divertex(int id):
@@ -23,21 +25,33 @@ void Divertex::add_inverse_path(Divertex* inverse_neighbor){
     inverse_paths.push_back(inverse_neighbor);
 }
 
-void Divertex::add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s){
+void Divertex::add_undiscovered_neighbors_to_stack(std::stack<Divertex*>& s, std::map<Divertex*, bool>& already_added_ref){
     undiscovered_neighbors = false;
+    bool already_added_to_stack;
     for(Divertex* curr_neighbor: paths){
-        if(curr_neighbor->undiscovered()){
+        already_added_to_stack = already_added_ref[curr_neighbor];
+        if(already_added_to_stack){
+            // Do Nothing
+        }
+        else if(curr_neighbor->undiscovered()){
             s.push(curr_neighbor);
+            already_added_ref[curr_neighbor] = true;
             undiscovered_neighbors = true;
         }
     }
 }
 
-void Divertex::add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s){
+void Divertex::add_undiscovered_reverse_neighbors_to_stack(std::stack<Divertex*>& s, std::map<Divertex*, bool>& already_added_ref){
     undiscovered_neighbors = false;
+    bool already_added_to_stack;
     for(Divertex* curr_neighbor: inverse_paths){
-        if(curr_neighbor->undiscovered()){
+        already_added_to_stack = already_added_ref[curr_neighbor];
+        if(already_added_to_stack){
+            // Do Nothing
+        }
+        else if(curr_neighbor->undiscovered()){
             s.push(curr_neighbor);
+            already_added_ref[curr_neighbor] = true;
             undiscovered_neighbors = true;
         }
     }
