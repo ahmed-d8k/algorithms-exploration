@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <map>
 
 class Divertex{
     private:

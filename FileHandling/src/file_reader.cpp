@@ -24,6 +24,7 @@ std::vector<std::vector<std::string>> File_Reader::get_2d_word_vector_from_text_
     return string_2d_vec;
 }
 
+/*Commas are not parsed sep*/
 std::vector<std::string> File_Reader::get_word_vector_from_line(std::string line){
     std::vector<std::string> word_vec = {};
     std::string word;
