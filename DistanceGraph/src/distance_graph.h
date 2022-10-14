@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <string>
 
 #include "vertex.h"
 #include "../tests/test_distance_graph.h"
