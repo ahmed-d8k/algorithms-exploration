@@ -1,5 +1,6 @@
 #include <map>
 #include <string>
+#include <vector>
 
 #include "distance_graph.h"
 #include "vertex.h"
@@ -66,4 +67,17 @@ void Distance_Graph::add_path_to_vertex(int vert1_id, int vert2_id, int dist){
 
     vert1->add_path(vert2, dist);
     vert2->add_path(vert1, dist);
+}
+
+std::vector<Vertex*> Distance_Graph::get_all_vertices(){
+    std::vector<Vertex*> vert_vec;
+    for(std::pair<int, Vertex*> p: vert_map){
+        Vertex* v = p.second;
+        vert_vec.push_back(v);
+    }
+    return vert_vec;
+}
+
+Vertex* Distance_Graph::get_vertex(int vert_id){
+    return vert_map[vert_id];
 }

@@ -17,6 +17,7 @@ class Distance_Graph{
         void add_new_vertex(int id);
         void add_direct_path_to_vertex(int targ_id, int source_id, int dist);
         void add_path_to_vertex(int vert1_id, int vert2_id, int distance);
+        std::vector<Vertex*> get_all_vertices();
 
 
         friend Test_Distance_Graph; 
