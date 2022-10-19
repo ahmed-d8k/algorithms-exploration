@@ -30,9 +30,31 @@ std::vector<std::string> File_Reader::get_word_vector_from_line(std::string line
     std::string word;
     std::stringstream str_stream(line);
     while(str_stream >> word){
-        word_vec.push_back(word);
+        if(word_has_comma(word)){
+            std::stringstream word_stream(word);
+            while(word_stream.good()){
+                std::string substr;
+                getline(word_stream, substr, ',');
+                word_vec.push_back(substr);
+                word_vec.push_back(",");
+            }
+            word_vec.pop_back();
+        }
+        else{
+            word_vec.push_back(word);
+        }
     }
     return word_vec;
+}
+
+bool File_Reader::word_has_comma(std::string word){
+    auto pos = word.find(",");
+    if(pos != std::string::npos){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 std::vector<int> File_Reader::get_int_vector_from_text_file(std::string file_path){

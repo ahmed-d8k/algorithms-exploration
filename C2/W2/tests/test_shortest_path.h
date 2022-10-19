@@ -8,6 +8,7 @@ class Test_Shortest_Path: Test{
         void execute_tests();
         void test_shortest_path();
         void test_basic_case();
+        void test_intermediate_case();
 
 };
 

@@ -12,9 +12,9 @@ Shortest_Path::Shortest_Path(Distance_Graph& g):
     graph(g),
     current_dist_score(0),
     previously_setup(false),
-    looking_for_shortest_path(true)
+    looking_for_shortest_path(true),
+    start_cond_not_reset(false)
     {
-        setup();
     }
 
 
@@ -27,11 +27,12 @@ void Shortest_Path::setup(){
         std::pair<Vertex*, int> pair_dist(v, -1); /* -1 Means Undiscovered*/
         shortest_dist_to_vert_map.insert(pair_dist);
     }
+    previously_setup = true;
 
 }
 
 void Shortest_Path::setup_start_condition(int source_id){
-    previously_setup = true;
+    start_cond_not_reset = true;
     Vertex* source_v = graph.get_vertex(source_id); 
     discover_vert(source_v);
     add_vert_to_discovered_space(source_v);
@@ -46,14 +47,28 @@ void Shortest_Path::discover_vert(Vertex* v){
 
 int Shortest_Path::get_shortest_path_distance(int source_id, int targ_id){
     if(previously_setup){
-        reset(); /* Does Nothing ATM*/
+    }
+    else{
+        setup();
+    }
+
+    if(start_cond_not_reset){
+        reset();
     }
     setup_start_condition(source_id);
     Vertex* targ = graph.get_vertex(targ_id);
 
     while(looking_for_shortest_path){
         populate_queue_and_update_distances(); 
-        find_optimal_vertex_and_update_score(targ);
+        //All vertexes were searched and no path was found... return max dist
+        if(q.empty()){
+            looking_for_shortest_path = false;
+            current_dist_score = 1000000;
+        }
+        else{
+            find_optimal_vertex_and_update_score(targ);
+        }
+
     }
 
 
@@ -69,7 +84,7 @@ void Shortest_Path::find_optimal_vertex_and_update_score(Vertex* targ){
     while(queue_full()){
         std::pair<Vertex*, int> path = get_next_path();
         Vertex* curr_vert = path.first;
-        int curr_dist = path.second;
+        int curr_dist = shortest_dist_to_vert_map[curr_vert];
 
         if(first_entry){
             shortest_dist = curr_dist;
@@ -84,7 +99,7 @@ void Shortest_Path::find_optimal_vertex_and_update_score(Vertex* targ){
 
     }
 
-    current_dist_score += shortest_dist;
+    current_dist_score = shortest_dist;
 
     if(shortest_vert == targ){
         looking_for_shortest_path = false;
@@ -102,7 +117,21 @@ std::pair<Vertex*, int> Shortest_Path::get_next_path(){
 }
 
 void Shortest_Path::reset(){
+    start_cond_not_reset = false;
+    discovered_verts.clear();
+    current_dist_score = 0;
+    looking_for_shortest_path = true;
 
+    std::map<Vertex*, bool>::iterator discover_it = discovered_vert_map.begin();
+    std::map<Vertex*, int>::iterator dist_it = shortest_dist_to_vert_map.begin();
+
+    for(discover_it = discovered_vert_map.begin(); discover_it!=discovered_vert_map.end(); discover_it++){
+        (*discover_it).second = false;
+    }
+
+    for(dist_it = shortest_dist_to_vert_map.begin(); dist_it!=shortest_dist_to_vert_map.end(); dist_it++){
+        (*dist_it).second = -1;
+    }
 }
 
 /* Possible concern here with multiple paths to the same vertex*/

@@ -13,6 +13,7 @@ class Shortest_Path{
         int current_dist_score;
         bool previously_setup;
         bool looking_for_shortest_path;
+        bool start_cond_not_reset;
         std::map<Vertex*, bool> discovered_vert_map; 
         std::map<Vertex*, int> shortest_dist_to_vert_map;
         std::vector<Vertex*> discovered_verts;
