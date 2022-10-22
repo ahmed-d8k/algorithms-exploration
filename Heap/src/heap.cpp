@@ -58,3 +58,32 @@ bool Heap::has_parent(int ind){
         return false;
     }
 }
+
+int Heap::peek(){
+    return heap_list[0];
+}
+
+int Heap::poll(){
+    int root_val = heap_list[0];
+
+    heap_list[0] = heap_list[size-1];
+    size--;
+
+    heapify_down();
+
+    return root_val;
+}
+
+void Heap::swap(int ind1, int ind2){
+    int val1 = heap_list[ind1];
+    int val2 = heap_list[ind2];
+
+    heap_list[ind1] = val2;
+    heap_list[ind2] = val1;
+}
+
+void Heap::add(int val){
+    size++;
+    heap_list[size - 1] = val;
+    heapify_up();
+}

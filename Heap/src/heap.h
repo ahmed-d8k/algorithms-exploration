@@ -4,10 +4,13 @@
 #include <vector>
 
 class Heap{
-    private:
+    protected:
         std::vector<int> heap_list;
         int size;
-    public:
+
+        void virtual heapify_up()=0;
+        void virtual heapify_down()=0;
+
         int get_parent_ind(int ind);
         int get_left_child_ind(int ind);
         int get_right_child_ind(int ind);
@@ -18,18 +21,16 @@ class Heap{
         bool has_right_child(int ind);
         bool has_parent(int ind);
 
-        void add(int val);
-        void swap();
-        int peek();
-        int poll();
+        void swap(int ind1, int ind2);
+    public:
 
-
-
-
-        void virtual heapify_up()=0;
-        void virtual heapify_down()=0;
         int virtual get_max()=0;
         int virtual get_min()=0;
+
+        int peek();
+        int poll();
+        void add(int val);
+
 };
 
 #endif
