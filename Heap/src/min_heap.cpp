@@ -1,5 +1,11 @@
 
 #include "min_heap.h"
+#include "heap.h"
+
+
+Min_Heap::Min_Heap():
+    Heap()
+    {}
 
 void Min_Heap::heapify_down(){
     int parent_ind = 0;
@@ -50,14 +56,27 @@ void Min_Heap::heapify_up(){
 }
 
 bool Min_Heap::child_less_than_parent(int child_val, int parent_val){
-    return child_val > parent_val;
+    return child_val < parent_val;
 }
 
 
-int Min_Heap::get_min(){
-    return poll();
+int Min_Heap::peek_min(){
+    return peek();
 }
 
-int Min_Heap::get_max(){
-    return 0;
+int Min_Heap::peek_max(){
+    int curr_ind = 0;
+    int largest_ind = 0;
+    while(has_left_child(curr_ind)){
+        largest_ind = get_left_child_ind(curr_ind);
+        if(right_child_exists_and_smaller_than_left(curr_ind)){
+
+        }
+        else{
+            largest_ind = get_right_child_ind(curr_ind);
+        }
+        curr_ind = largest_ind;
+    }
+    size--;
+    return heap_list[largest_ind];
 }

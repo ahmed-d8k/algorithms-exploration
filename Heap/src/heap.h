@@ -8,6 +8,8 @@ class Heap{
         std::vector<int> heap_list;
         int size;
 
+        Heap();
+
         void virtual heapify_up()=0;
         void virtual heapify_down()=0;
 
@@ -23,9 +25,8 @@ class Heap{
 
         void swap(int ind1, int ind2);
     public:
-
-        int virtual get_max()=0;
-        int virtual get_min()=0;
+        int virtual peek_max()=0;
+        int virtual peek_min()=0;
 
         int peek();
         int poll();

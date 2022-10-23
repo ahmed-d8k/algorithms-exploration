@@ -3,6 +3,10 @@
 
 #include "heap.h"
 
+Heap::Heap():
+    size(0)
+    {}
+
 int Heap::get_parent_ind(int ind){
    return int(ceil((ind-2)/2)); 
 }
@@ -84,6 +88,6 @@ void Heap::swap(int ind1, int ind2){
 
 void Heap::add(int val){
     size++;
-    heap_list[size - 1] = val;
+    heap_list.push_back(val);
     heapify_up();
 }
