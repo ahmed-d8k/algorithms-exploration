@@ -10,7 +10,7 @@
 #test_heap.o: tests/test_heap.cpp
 #	$(CC) $(CFLAGS) -c tests/test_heap.cpp
 
-SRCS = main.cpp tests/test_heap.cpp src/heap.cpp src/min_heap.cpp
+SRCS = main.cpp tests/test_heap.cpp src/heap.cpp src/min_heap.cpp src/max_heap.cpp
 TARG = output
 CC = g++
 CFLAGS = -Wall -static -g3
