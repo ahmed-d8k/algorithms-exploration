@@ -33,6 +33,7 @@ class Heap{
         int peek();
         int poll();
         void add(int val);
+        int get_size();
 
 };
 

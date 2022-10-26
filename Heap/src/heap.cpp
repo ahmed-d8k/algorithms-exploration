@@ -91,3 +91,7 @@ void Heap::add(int val){
     heap_list.push_back(val);
     heapify_up();
 }
+
+int Heap::get_size(){
+    return size;
+}

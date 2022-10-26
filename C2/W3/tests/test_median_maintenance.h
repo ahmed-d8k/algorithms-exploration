@@ -8,6 +8,7 @@ class Test_Median_Maintenance: Test{
         void execute_tests();
         void test_median_maintenance();
         void basic_test();
+        void advanced_test();
 
 
 };
