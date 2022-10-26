@@ -12,7 +12,7 @@
 
 
 
-SRCS = main.cpp tests/test_median_maintenance.cpp src/median_maintenance.cpp ../../Heap/src/max_heap.cpp ../../Heap/src/min_heap.cpp ../../Heap/src/heap.cpp  
+SRCS = main.cpp tests/test_median_maintenance.cpp src/median_maintenance.cpp ../../Heap/src/max_heap.cpp ../../Heap/src/min_heap.cpp ../../Heap/src/heap.cpp ../../FileHandling/src/file_reader.cpp  
 TARG = output
 CC = g++
 CFLAGS = -Wall -static -g3

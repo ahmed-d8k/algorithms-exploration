@@ -21,11 +21,11 @@ void Test_Median_Maintenance::basic_test(){
     a.add(1);
     assert(a.get_median() == 1);
     a.add(2);
-    assert(a.get_median() == 1.5);
+    assert(a.get_median() == 1);
     a.add(3);
     assert(a.get_median() == 2);
     a.add(4);
-    assert(a.get_median() == 2.5);
+    assert(a.get_median() == 2);
     a.add(5);
     assert(a.get_median() == 3);
     
@@ -36,23 +36,23 @@ void Test_Median_Maintenance::advanced_test(){
     a.add(10);
     assert(a.get_median() == 10);
     a.add(20);
-    assert(a.get_median() == 15);
+    assert(a.get_median() == 10);
     a.add(30);
     assert(a.get_median() == 20);
     a.add(40);
-    assert(a.get_median() == 25);
+    assert(a.get_median() == 20);
     a.add(50);
     assert(a.get_median() == 30);
     a.add(1);
-    assert(a.get_median() == 25);
+    assert(a.get_median() == 20);
     a.add(1);
     assert(a.get_median() == 20);
     a.add(2);
-    assert(a.get_median() == 15);
+    assert(a.get_median() == 10);
     a.add(3);
     assert(a.get_median() == 10);
     a.add(4);
-    assert(a.get_median() == 7);
+    assert(a.get_median() == 4);
     a.add(5);
     assert(a.get_median() == 5);
 

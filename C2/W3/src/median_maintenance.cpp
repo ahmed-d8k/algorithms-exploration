@@ -42,9 +42,11 @@ bool Median_Maintenance::size_is_odd(){
 }
 
 void Median_Maintenance::even_median_update(){
-    double val1 = min_heap.peek_max();
-    double val2 = max_heap.peek_min();
-    curr_median = (val1 + val2)/2;
+   // double val1 = min_heap.peek_max();
+   // double val2 = max_heap.peek_min();
+   // curr_median = (val1 + val2)/2;
+   double val1 = min_heap.peek_max();
+   curr_median = val1;
 }
 
 bool Median_Maintenance::min_heap_larger(){
