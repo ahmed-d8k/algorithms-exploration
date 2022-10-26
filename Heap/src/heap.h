@@ -27,6 +27,8 @@ class Heap{
     public:
         int virtual peek_max()=0;
         int virtual peek_min()=0;
+        int virtual get_max()=0;
+        int virtual get_min()=0;
 
         int peek();
         int poll();

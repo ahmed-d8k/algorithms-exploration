@@ -1,3 +1,4 @@
+#include <algorithm>
 
 #include "min_heap.h"
 #include "heap.h"
@@ -65,18 +66,39 @@ int Min_Heap::peek_min(){
 }
 
 int Min_Heap::peek_max(){
-    int curr_ind = 0;
-    int largest_ind = 0;
-    while(has_left_child(curr_ind)){
-        largest_ind = get_left_child_ind(curr_ind);
-        if(right_child_exists_and_smaller_than_left(curr_ind)){
-
+    bool first_val = true;
+    int largest_val;
+    for(int val: heap_list){
+        if(first_val){
+            largest_val = val;
+            first_val = false;
         }
-        else{
-            largest_ind = get_right_child_ind(curr_ind);
+        if(val > largest_val){
+            largest_val = val;
         }
-        curr_ind = largest_ind;
     }
-    size--;
-    return heap_list[largest_ind];
+    return largest_val;
+}
+
+int Min_Heap::get_min(){
+    return poll();
+}
+
+int Min_Heap::get_max(){
+    int max_val = peek_max();
+    int max_ind = std::find(heap_list.begin(), heap_list.end(), max_val) - heap_list.begin();
+    int final_ind = size-1; 
+
+    swap(final_ind, max_ind);
+
+    int proper_size = size-1;
+    int shrunk_size = max_ind+1; 
+
+    size = shrunk_size;
+    heapify_up();
+
+    size = proper_size;
+    heap_list.pop_back();
+
+    return max_val;
 }

@@ -24,11 +24,17 @@ void Test_Heap::test_max_heap(){
 
     a.add(1);
     a.add(2);
-    a.add(3);
-    a.add(4);
     a.add(5);
+    a.add(4);
+    a.add(3);
 
     assert(a.peek_max() == 5);
+    assert(a.peek_min() == 1);
+    
+    a.get_min();
+
+    assert(a.peek_max() == 5);
+    assert(a.peek_min() == 2);
 }
 
 void Test_Heap::test_min_heap(){
@@ -36,10 +42,16 @@ void Test_Heap::test_min_heap(){
 
     a.add(1);
     a.add(2);
-    a.add(3);
-    a.add(4);
     a.add(5);
+    a.add(4);
+    a.add(3);
 
     assert(a.peek_min() == 1);
+    assert(a.peek_max() == 5);
+
+    a.get_max();
+
+    assert(a.peek_min() == 1);
+    assert(a.peek_max() == 4);
 
 }

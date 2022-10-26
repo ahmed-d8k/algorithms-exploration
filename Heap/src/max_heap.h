@@ -14,6 +14,8 @@ class Max_Heap: public Heap{
         Max_Heap();
         int peek_max();
         int peek_min();
+        int get_max();
+        int get_min();
 
 };
 
