@@ -1,5 +1,5 @@
 
-SRC = main.cpp tests/test_two_sum.cpp src/two_sum.cpp 
+SRC = main.cpp tests/test_two_sum.cpp src/two_sum.cpp ../../FileHandling/src/file_reader.cpp 
 TARG = output
 CC = g++
 CFLAGS = -Wall -g3 -static

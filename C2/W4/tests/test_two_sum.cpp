@@ -14,10 +14,11 @@ void Test_Two_Sum::test_two_sum(){
 }
 
 void Test_Two_Sum::basic_test(){
-    std::vector<int> int_vec{1,2,3,4,5,6,6,2,4,7};
+    std::vector<long long int> int_vec{1,2,3,4,5,6,6,2,4,7};
     Two_Sum a(int_vec);
     int distinct_sums = a.get_distinct_solutions(8);
 
+    std::cout << distinct_sums << std::endl;
     assert(distinct_sums == 4);
     
 }

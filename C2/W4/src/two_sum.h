@@ -6,9 +6,9 @@
 
 class Two_Sum{
     private:
-        std::unordered_map<int, int> hashmap;
+        std::unordered_map<long long int, long long int> hashmap;
     public:
-        Two_Sum(std::vector<int>);
+        Two_Sum(std::vector<long long int>);
         int get_distinct_solutions(int);
         int get_distinct_set_solutions(int, int);
 };
