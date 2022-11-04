@@ -7,7 +7,41 @@
 
 Distance_Graph::Distance_Graph()
     {}
+/*Constructor assumes data implies one way edges*/
+//Distance_Graph::Distance_Graph(std::vector<std::vector<std::string>> word_2d_vec){
+//    for(std::vector<std::string> word_vec: word_2d_vec){
+//        bool first_word = true;
+//        bool searching_for_vertex = true;
+//        bool searching_for_comma = true;
+//        bool searching_for_dist = true;
+//        int parent_vert_id;
+//        int curr_vert_id;
+//        int dist;
+//        for(std::string word: word_vec){
+//            if(first_word){
+//                parent_vert_id = std::stoi(word); 
+//                add_new_vertex(parent_vert_id);
+//                first_word=false;
+//            }
+//            else if(searching_for_vertex){
+//                curr_vert_id = std::stoi(word);
+//                add_new_vertex(curr_vert_id);
+//                searching_for_vertex = false;
+//            }
+//            else if(searching_for_comma){
+//                searching_for_comma = false;
+//            }
+//            else if(searching_for_dist){
+//                dist = std::stoi(word);
+//                add_direct_path_to_vertex(curr_vert_id, parent_vert_id, dist);
+//                searching_for_vertex = true;
+//                searching_for_comma = true;
+//            }
+//        }
+//    }
+//}
 
+/* Constructor assumes data implies that edges are bidirectional*/
 Distance_Graph::Distance_Graph(std::vector<std::vector<std::string>> word_2d_vec){
     for(std::vector<std::string> word_vec: word_2d_vec){
         bool first_word = true;
@@ -28,14 +62,9 @@ Distance_Graph::Distance_Graph(std::vector<std::vector<std::string>> word_2d_vec
                 add_new_vertex(curr_vert_id);
                 searching_for_vertex = false;
             }
-            else if(searching_for_comma){
-                searching_for_comma = false;
-            }
             else if(searching_for_dist){
                 dist = std::stoi(word);
-                add_direct_path_to_vertex(curr_vert_id, parent_vert_id, dist);
-                searching_for_vertex = true;
-                searching_for_comma = true;
+                add_path_to_vertex(curr_vert_id, parent_vert_id, dist);
             }
         }
     }
