@@ -1,4 +1,4 @@
-SRC = main.cpp
+SRC = main.cpp src/cluster.cpp tests/test_cluster.cpp ../../../FileHandling/src/file_reader.cpp ../../../DistanceGraph/src/vertex.cpp
 TARG = output
 CC = g++
 CFLAGS = -Wall -static -g3
