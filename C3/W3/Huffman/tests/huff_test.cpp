@@ -11,7 +11,7 @@ void Huff_Test::execute_tests(){
 }
 
 void Huff_Test::basic_test(){
-    auto word_2d_vec = File_Reader::get_2d_word_vector_from_text_file("../data/huff_test.txt");
+    auto word_2d_vec = File_Reader::get_2d_word_vector_from_text_file("data/huff_test.txt");
     Huff alg(word_2d_vec);
     alg.run_huff();
 

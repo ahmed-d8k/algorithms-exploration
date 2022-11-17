@@ -10,6 +10,7 @@ typedef std::pair<int, std::string> e;
 class Huff{
     private:
         std::priority_queue<e, std::vector<e>, std::greater<e>> min_heap;
+        std::queue<std::pair<std::string, std::string>> bfs;
         std::map<std::string, std::pair<std::string, std::string>> group_map;
         std::map<std::string, std::string> code_map;
         int group_count;
@@ -22,7 +23,7 @@ class Huff{
         void generate_codes();
         int get_max_code_length();
         int get_min_code_length();
-        bool group_or_root();
+        bool group_or_root(std::string);
 
 };
 

@@ -20,7 +20,7 @@ Huff::Huff(std::vector<std::vector<std::string>> word_2d_vec){
 
 void Huff::add_symbol(std::string id, int weight){
     min_heap.push(std::pair<int, std::string>(weight, id));
-    code_map.insert(std::pair<std::string, std::string>(id, ""));
+    //code_map.insert(std::pair<std::string, std::string>(id, ""));
 }
 
 int Huff::get_max_code_length(){
@@ -77,5 +77,49 @@ void Huff::run_huff(){
             add_symbol(group_id, group_weight);
         }
         group_map.insert(std::pair<std::string, std::pair<std::string, std::string>>(group_id, std::pair<std::string, std::string>(group1.second, group2.second)));
+    }
+    generate_codes();
+}
+
+void Huff::generate_codes(){ /*Breadth First Search*/
+    // auto root_children = group_map["Root"]; 
+
+    bfs.push(std::pair<std::string, std::string>("Root", ""));
+    while(!bfs.empty()){
+        auto code_pair = bfs.front();
+        bfs.pop();
+
+        auto parent_id = code_pair.first;
+        auto parent_code = code_pair.second;
+
+        auto child1_id = group_map[parent_id].first; 
+        std::string child1_code = parent_code + "0";
+
+        auto child2_id = group_map[parent_id].second; 
+        std::string child2_code = parent_code + "1";
+
+        if(group_or_root(child1_id)){
+            bfs.push(std::pair<std::string, std::string>(child1_id, child1_code));
+        }
+        else{
+            code_map.insert(std::pair<std::string, std::string>(child1_id, child1_code));
+        }
+        if(group_or_root(child2_id)){
+            bfs.push(std::pair<std::string, std::string>(child2_id, child2_code));
+        }
+        else{
+            code_map.insert(std::pair<std::string, std::string>(child2_id, child2_code));
+        }
+    }
+    
+}
+
+bool Huff::group_or_root(std::string id){
+    std::string prefix = id.substr(0, 1);
+    if(prefix == "G" || prefix == "R"){
+        return true;
+    }
+    else{
+        return false;
     }
 }
