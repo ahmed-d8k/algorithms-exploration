@@ -1,4 +1,4 @@
-SRC = main.cpp tests/test_dynam.cpp
+SRC = main.cpp tests/test_dynam.cpp src/dynam.cpp ../../../FileHandling/src/file_reader.cpp
 TARG = output
 CC = g++
 CFLAGS = -Wall -g3 -static
