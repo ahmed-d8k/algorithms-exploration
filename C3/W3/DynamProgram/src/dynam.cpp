@@ -6,6 +6,7 @@
 #include "dynam.h"
 
 Dynam::Dynam(std::vector<std::vector<std::string>> word_2d_vec){
+    data_ref.push_back(0);
     for(auto line: word_2d_vec){
         for(auto word: line){
             data_ref.push_back(std::stoi(word));
