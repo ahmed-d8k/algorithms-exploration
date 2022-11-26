@@ -17,7 +17,7 @@ Dynam::Dynam(std::vector<std::vector<std::string>> word_2d_vec){
 
 void Dynam::run(){
     //find_max_set(std::vector<int>{}, -1);
-    find_max_set_score(0, -1);
+    find_max_set_score();
 }
 
 int Dynam::get_best_score(){
@@ -67,27 +67,56 @@ void Dynam::find_max_set(std::vector<int> indices, int index){
 
 }
 
-void Dynam::find_max_set_score(int score, int index){
-    if(exceeds_max_index(index)){
-        update_score(score);
-        return;
+void Dynam::find_max_set_score(){
+    int index = 2;
+    long long int score = 0;
+    add_subproblem_score(data_ref[0], 0);
+    add_subproblem_score(data_ref[1], 1);
+    while(index < data_ref.size()){
+        long long int score_sub1 = 0;
+        long long int score_sub2 = 0;
+        if(solution_score_exists(index-1)){
+            score_sub1 = subscore[index-1];
+        }
+        
+        if(solution_score_exists(index-2)){
+            score_sub2 = subscore[index-2] + data_ref[index];
+            //add_subproblem_score(score_sub2, index);
+        }
+
+        if(score_sub1 >= score || score_sub2 >= score){
+            if(score_sub1 >= score_sub2){
+                score = score_sub1;
+            }
+            else{
+                score = score_sub2;
+            }
+            add_subproblem_score(score, index);
+        }
+        index++;
     }
-    /* Skip */
-    if(solution_exists(index+1)){
-        find_max_set_score(subscore[index+1], index+1);
-    }
-    else{
-        find_max_set_score(score, index+1);
-    }
-    /* Add + 2*/
-    if(solution_exists(index+2)){
-        find_max_set_score(subscore[index+2], index+2);
-    }
-    else{
-        score += data_ref[index + 2];
-        add_subproblem_score(score, index + 2);
-        find_max_set_score(score, index+3);
-    }
+    update_score(score);
+    update_best_inds();
+    //if(exceeds_max_index(index)){
+    //    update_score(score);
+    //    return;
+    //}
+    ///* Skip */
+    //if(solution_exists(index+1)){
+    //    find_max_set_score(subscore[index+1], index+1);
+    //}
+    //else{
+    //    find_max_set_score(score, index+1);
+    //}
+    ///* Add + 2*/
+    //if(solution_exists(index+2)){
+    //    find_max_set_score(subscore[index+2], index+2);
+    //}
+    //else{
+    //    score += data_ref[index + 2];
+    //    add_subproblem_score(score, index + 2);
+    //    find_max_set_score(score, index+3);
+    //}
 
 }
 
@@ -103,6 +132,16 @@ void Dynam::add_subproblem_score(int score, int index){
 bool Dynam::solution_exists(int index){
     auto it = subproblems.find(index);
     if(it != subproblems.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Dynam::solution_score_exists(int index){
+    auto it = subscore.find(index);
+    if(it != subscore.end()){
         return true;
     }
     else{
@@ -129,6 +168,34 @@ void Dynam::inds_are_present(std::vector<int> specified_inds){
         }
         else{
            std::cout << ind << " 0" << "\n"; 
+        }
+    }
+}
+
+void Dynam::update_best_inds(){
+    std::map<int,int>::iterator it = subscore.end();
+    it--;
+    while(it != subscore.begin()){
+        auto case1_it = std::prev(it, 1);
+        auto case2_it = std::prev(it, 2);
+        int curr_index = it->first;
+        int case1_val = (*case1_it).second;
+        int case2_val = (*case2_it).second;
+
+        if(case1_val >= (case2_val + data_ref[curr_index])){
+            it = std::prev(it,1);
+        }
+        else{
+            best_inds.push_back(it->first);
+
+            it = std::prev(it, 1);
+            if(it == subscore.begin()){
+
+            }
+            else{
+
+                it = std::prev(it, 1);
+            }
         }
     }
 }

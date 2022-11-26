@@ -10,17 +10,19 @@ class Dynam{
         std::vector<int> data_ref;
         std::map<int,std::vector<int>> subproblems;
         std::map<int, int> subscore;
-        int best_score;
+        long long int best_score;
         std::vector<int> best_inds; 
 
         void find_max_set(std::vector<int> ind, int index);
-        void find_max_set_score(int score, int index);
+        void find_max_set_score();
         void update_ind_score(std::vector<int>);
         void update_score(int);
         bool solution_exists(int);
+        bool solution_score_exists(int);
         bool exceeds_max_index(int);
         void add_subproblem(std::vector<int> ind, int index);
         void add_subproblem_score(int, int);
+        void update_best_inds();
     public:
         Dynam(std::vector<std::vector<std::string>>);
         void run();
