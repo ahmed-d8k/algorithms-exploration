@@ -13,4 +13,6 @@ void Test_Knap::basic_test(){
     auto raw_data = File_Reader::get_2d_word_vector_from_text_file("data/test_knap.txt");
     Knapsack a(raw_data);
     a.run();
+    int answer = a.get_best_score();
+    std::cout << "Best Score: " << answer << "\n";
 }

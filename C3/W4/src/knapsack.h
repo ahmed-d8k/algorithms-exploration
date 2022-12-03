@@ -7,17 +7,21 @@
 
 class Knapsack{
     private:
-        std::map<std::pair<int,int>, int> subprobs; //Specified Weight and Value gives a value score
+        std::vector<std::vector<int>> subprobs; //Weight of item versus total growing weight of knapsack
         std::vector<std::pair<int,int>> item_data;
         int best_val;
-        int weight;
         int max_weight;
         int total_items;
         
+        
         void alg();
+        int solve_subproblem(int, int);
+        bool solution_exists(int, int);
+        bool base_case(int);
     public:
         Knapsack(std::vector<std::vector<std::string>>);
         void run();
+        int get_best_score();
 };
 
 #endif
