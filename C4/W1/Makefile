@@ -1,4 +1,4 @@
-SRC = main.cpp
+SRC = main.cpp  tests/test_rsp.cpp src/robust_short_path.cpp ../../FileHandling/src/file_reader.cpp
 TARG = output
 CC = g++
 CFLAGS = -Wall -static -g3
@@ -15,4 +15,4 @@ $(TARG): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(TARG)
+	rm -f $(TARG) $(OBJ)
