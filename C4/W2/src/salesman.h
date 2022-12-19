@@ -2,22 +2,25 @@
 #define SALESMAN_H
 
 #include <vector>
+#include <string>
+#include "path.h"
 
 class Salesman{
     private:
-
-        std::vector<int> city_x;
-        std::vector<int> city_y;
+        std::vector<double> city_x;
+        std::vector<double> city_y;
+        std::vector<std::vector<Path>> subprobs;
     
         int city_count;
-        int shortest_path;
+        double shortest_path;
 
-        int calc_euclid_dist(int, int, int, int);
-        int get_city_dist(int, int);
-    public:
-        Salesman();
-        void run();
+        double calc_euclid_dist(double, double, double, double);
+        double get_city_dist(int, int);
         void alg();
+        double round(double, double);
+    public:
+        Salesman(std::vector<std::vector<std::string>>);
+        void run();
         int get_shortest_path();
 };
 
