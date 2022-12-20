@@ -7,6 +7,7 @@
 class Test_Salesman: Test{
     public:
         void execute_tests();
+        void basic_tests();
 
 };
 
