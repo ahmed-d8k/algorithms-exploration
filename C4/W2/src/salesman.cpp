@@ -35,8 +35,7 @@ Salesman::Salesman(std::vector<std::vector<std::string>> data){
     }
 
     /*Initialize Subprob2*/
-    for(int i = 0; i <= city_count; i++){
-        int bit_cap = std::pow(2,i);
+    for(int i = 0; i < city_count; i++){
         std::vector<double> new_vec;
         for(long int j = 0; j <= std::pow(2, city_count); j++){
             new_vec.push_back(infinity);
@@ -44,10 +43,10 @@ Salesman::Salesman(std::vector<std::vector<std::string>> data){
         subprob2.push_back(new_vec);
     }
 
-    int set_size = 1;
+    int last_added_vert = 0;
     long int set_state = std::pow(2,0);
 
-    subprob2[set_size][set_state] = 0;
+    subprob2[last_added_vert][set_state] = 0;
 
     for(int i = 0; i <= city_count; i++){
         std::vector<int> new_vec;
@@ -57,7 +56,7 @@ Salesman::Salesman(std::vector<std::vector<std::string>> data){
         last_added_city.push_back(new_vec);
     }
 
-    last_added_city[set_size][set_state] = 0;
+    last_added_city[1][set_state] = 0;
 
 
     std::vector<Path*> temp;
@@ -77,53 +76,61 @@ double Salesman::get_city_dist(int c1, int c2){
 }
 
 void Salesman::alg3(){
+    int progress = 0;
     for(int set_size = 1; set_size<city_count; set_size++){
-        for(long int set_state = 0; set_state<=std::pow(2, city_count); set_state++){
-            double current_score = subprob2[set_size][set_state];
-            int source_city = last_added_city[set_size][set_state];
-            if(subprob2[set_size][set_state] == infinity){
-                continue;
+        for(int last_city = 0; last_city < city_count; last_city++){
+            if(progress%1 == 0){
+                std::cout << "Percent Done: " << double(progress)/((city_count-1)*(city_count))*100.0 << "%\n"; 
             }
-            else{
-                long int possible_cities_state = set_state ^ int(std::pow(2, city_count + 1) - 1);
-                std::vector<int> possible_cities;
-                for(int i = 0; i < city_count; i++){
-                    long int possible_city = std::pow(2, i);
-                    if(possible_cities_state & possible_city){
-                        possible_cities.push_back(i);
-                    }
+            progress++;
+            for(long int set_state = 0; set_state<=std::pow(2, city_count); set_state++){
+                double current_score = subprob2[last_city][set_state];
+                int source_city = last_city;
+                //int source_city = last_added_city[last_city][set_state];
+                if(current_score == infinity){
+                    continue;
                 }
-
-                bool first_city = true;
-                double best_dist = 0;
-                int best_city = 0;
-
-                for(int targ_city: possible_cities){
-                    long int curr_set_state = set_state + std::pow(2, targ_city);
-                    double dist = get_city_dist(source_city, targ_city); 
-                    double path_dist = dist + current_score;
-                    double current_prob_score = subprob2[set_size+1][curr_set_state];
-                    if(path_dist < current_prob_score){
-                        subprob2[set_size+1][curr_set_state] = path_dist;
-                        last_added_city[set_size+1][curr_set_state] = targ_city;
+                else{
+                    long int possible_cities_state = set_state ^ int(std::pow(2, city_count) - 1);
+                    std::vector<int> possible_cities;
+                    for(int i = 0; i < city_count; i++){
+                        long int possible_city = std::pow(2, i);
+                        if(possible_cities_state & possible_city){
+                            possible_cities.push_back(i);
+                        }
                     }
-                    //if(first_city){
-                    //    first_city = false;
-                    //    best_dist = dist;
-                    //    best_city = targ_city;
-                    //}
-                    //else{
-                    //    if(dist < best_dist){
-                    //        best_dist = dist;
-                    //        best_city = targ_city;
-                    //    }
-                    //}
+
+                    bool first_city = true;
+                    double best_dist = 0;
+                    int best_city = 0;
+
+                    for(int targ_city: possible_cities){
+                        long int curr_set_state = set_state + std::pow(2, targ_city);
+                        double dist = get_city_dist(source_city, targ_city); 
+                        double path_dist = dist + current_score;
+                        double current_prob_score = subprob2[targ_city][curr_set_state];
+                        if(path_dist < current_prob_score){
+                            subprob2[targ_city][curr_set_state] = path_dist;
+                            //last_added_city[set_size+1][curr_set_state] = targ_city;
+                        }
+                        //if(first_city){
+                        //    first_city = false;
+                        //    best_dist = dist;
+                        //    best_city = targ_city;
+                        //}
+                        //else{
+                        //    if(dist < best_dist){
+                        //        best_dist = dist;
+                        //        best_city = targ_city;
+                        //    }
+                        //}
+                    }
+
+                    //long int best_set_state = set_state + std::pow(2, best_city);
+
+                    //subprob2[best_city][best_set_state] = current_score+best_dist;
+                    //last_added_city[set_size+1][best_set_state] = best_city;
                 }
-
-                //long int best_set_state = set_state + std::pow(2, best_city);
-
-                //subprob2[set_size+1][best_set_state] = current_score+best_dist;
-                //last_added_city[set_size+1][best_set_state] = best_city;
             }
         }
     }
@@ -132,13 +139,15 @@ void Salesman::alg3(){
     /*Complete Tour*/
     bool first_city = true;
     double best_final_score = 0;
+    long int final_state = std::pow(2, city_count) - 1;
 
-    for(int set_state = 1; set_state<=std::pow(2, city_count); set_state++){
-        double current_score = subprob2[city_count][set_state];
-        int source_city = last_added_city[city_count][set_state];
+    for(int city = 0; city < city_count; city++){
+        double current_score = subprob2[city][final_state];
+        //int source_city = last_added_city[city][final_state];
+        int source_city = city;
         double dist = get_city_dist(source_city, 0); 
         double final_score = current_score + dist;
-        if(subprob2[city_count][set_state] == infinity){
+        if(subprob2[city][final_state] == infinity){
             continue;
         }
         else{
