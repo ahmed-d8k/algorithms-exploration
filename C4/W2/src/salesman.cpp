@@ -5,6 +5,8 @@
 
 #include "salesman.h"
 
+long double Salesman::infinity = 20000000000;
+
 Salesman::Salesman(std::vector<std::vector<std::string>> data){
     bool first_line = true;
     for(auto line: data){
@@ -32,6 +34,36 @@ Salesman::Salesman(std::vector<std::vector<std::string>> data){
         }
     }
 
+    /*Initialize Subprob2*/
+    for(int i = 0; i <= city_count; i++){
+        int bit_cap = std::pow(2,i);
+        std::vector<double> new_vec;
+        for(long int j = 0; j <= std::pow(2, city_count); j++){
+            new_vec.push_back(infinity);
+        }
+        subprob2.push_back(new_vec);
+    }
+
+    int set_size = 1;
+    long int set_state = std::pow(2,0);
+
+    subprob2[set_size][set_state] = 0;
+
+    for(int i = 0; i <= city_count; i++){
+        std::vector<int> new_vec;
+        for(long int j = 0; j <= std::pow(2, city_count); j++){
+            new_vec.push_back(-1);
+        }
+        last_added_city.push_back(new_vec);
+    }
+
+    last_added_city[set_size][set_state] = 0;
+
+
+    std::vector<Path*> temp;
+    Path *a = new Path(city_count);
+    temp.push_back(a);
+    subprobs.push_back(temp);
 }
 
 double Salesman::calc_euclid_dist(double x1, double y1, double x2, double y2){
@@ -42,6 +74,87 @@ double Salesman::calc_euclid_dist(double x1, double y1, double x2, double y2){
 double Salesman::get_city_dist(int c1, int c2){
     double dist = calc_euclid_dist(city_x[c1], city_y[c1], city_x[c2], city_y[c2]);
     return dist;
+}
+
+void Salesman::alg3(){
+    for(int set_size = 1; set_size<city_count; set_size++){
+        for(long int set_state = 0; set_state<=std::pow(2, city_count); set_state++){
+            double current_score = subprob2[set_size][set_state];
+            int source_city = last_added_city[set_size][set_state];
+            if(subprob2[set_size][set_state] == infinity){
+                continue;
+            }
+            else{
+                long int possible_cities_state = set_state ^ int(std::pow(2, city_count + 1) - 1);
+                std::vector<int> possible_cities;
+                for(int i = 0; i < city_count; i++){
+                    long int possible_city = std::pow(2, i);
+                    if(possible_cities_state & possible_city){
+                        possible_cities.push_back(i);
+                    }
+                }
+
+                bool first_city = true;
+                double best_dist = 0;
+                int best_city = 0;
+
+                for(int targ_city: possible_cities){
+                    long int curr_set_state = set_state + std::pow(2, targ_city);
+                    double dist = get_city_dist(source_city, targ_city); 
+                    double path_dist = dist + current_score;
+                    double current_prob_score = subprob2[set_size+1][curr_set_state];
+                    if(path_dist < current_prob_score){
+                        subprob2[set_size+1][curr_set_state] = path_dist;
+                        last_added_city[set_size+1][curr_set_state] = targ_city;
+                    }
+                    //if(first_city){
+                    //    first_city = false;
+                    //    best_dist = dist;
+                    //    best_city = targ_city;
+                    //}
+                    //else{
+                    //    if(dist < best_dist){
+                    //        best_dist = dist;
+                    //        best_city = targ_city;
+                    //    }
+                    //}
+                }
+
+                //long int best_set_state = set_state + std::pow(2, best_city);
+
+                //subprob2[set_size+1][best_set_state] = current_score+best_dist;
+                //last_added_city[set_size+1][best_set_state] = best_city;
+            }
+        }
+    }
+
+
+    /*Complete Tour*/
+    bool first_city = true;
+    double best_final_score = 0;
+
+    for(int set_state = 1; set_state<=std::pow(2, city_count); set_state++){
+        double current_score = subprob2[city_count][set_state];
+        int source_city = last_added_city[city_count][set_state];
+        double dist = get_city_dist(source_city, 0); 
+        double final_score = current_score + dist;
+        if(subprob2[city_count][set_state] == infinity){
+            continue;
+        }
+        else{
+            if(first_city){
+                first_city = false;
+                best_final_score = final_score;
+            }
+            else{
+                if(final_score < best_final_score){
+                    best_final_score = final_score;
+                }
+            }
+        }
+    }
+
+    shortest_path = best_final_score;
 }
 
 void Salesman::alg2(){
@@ -210,7 +323,7 @@ void Salesman::alg(){
 }
 
 void Salesman::run(){
-    alg();
+    alg3();
 }
 
 double Salesman::get_shortest_path(){

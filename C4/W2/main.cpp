@@ -5,8 +5,8 @@
 #include "../../FileHandling/src/file_reader.h"
 
 int main(){
-    Test_Salesman a;
-    a.execute_tests();
+    //Test_Salesman a;
+    //a.execute_tests();
 
     auto data = File_Reader::get_2d_word_vector_from_text_file("data/tsp.txt");
     Salesman b(data);
