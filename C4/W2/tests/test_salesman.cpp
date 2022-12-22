@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <iomanip>
 
 #include "test_salesman.h"
 #include "../src/salesman.h"
@@ -16,7 +17,7 @@ void Test_Salesman::basic_tests(){
     Salesman alg(data);
     alg.run();
 
-    double answer = alg.get_shortest_path();
+    long double answer = alg.get_shortest_path();
     std::cout << "Distance: " << answer << std::endl;
     //assert(answer == 5.4142);
 
@@ -24,6 +25,6 @@ void Test_Salesman::basic_tests(){
     Salesman alg2(data2);
     alg2.run();
 
-    double answer2 = alg2.get_shortest_path();
+    long double answer2 = alg2.get_shortest_path();
     std::cout << "Distance: " << answer2 << std::endl;
 }

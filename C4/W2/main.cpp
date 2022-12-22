@@ -1,10 +1,12 @@
 #include <iostream>
+#include <iomanip>
 
 #include "tests/test_salesman.h"
 #include "src/salesman.h"
 #include "../../FileHandling/src/file_reader.h"
 
 int main(){
+    std::cout << std::setprecision(13);
     Test_Salesman a;
     a.execute_tests();
 
@@ -12,6 +14,6 @@ int main(){
     Salesman b(data);
     b.run();
 
-    double answer = b.get_shortest_path();
+    long double answer = b.get_shortest_path();
     std::cout << "Answer: " << answer << std::endl;
 }

@@ -7,28 +7,28 @@
 
 class Salesman{
     private:
-        std::vector<double> city_x;
-        std::vector<double> city_y;
+        std::vector<long double> city_x;
+        std::vector<long double> city_y;
         std::vector<std::vector<Path*>> subprobs;
-        std::vector<std::vector<double>> subprob2;
+        std::vector<std::vector<long double>> subprob2;
         std::vector<std::vector<int>> last_added_city;
     
         int city_count;
-        double shortest_path;
+        long double shortest_path;
 
         static long double infinity;
 
-        double calc_euclid_dist(double, double, double, double);
-        double get_city_dist(int, int);
+        long double calc_euclid_dist(long double, long double, long double, long double);
+        long double get_city_dist(int, int);
         void alg();
         void alg2();
         void alg3();
-        double round(double, double);
+        long double round(long double, long double);
         int count_set_bits(long int);
     public:
         Salesman(std::vector<std::vector<std::string>>);
         void run();
-        double get_shortest_path();
+        long double get_shortest_path();
 };
 
 #endif
