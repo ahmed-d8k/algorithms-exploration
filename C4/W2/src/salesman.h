@@ -24,6 +24,7 @@ class Salesman{
         void alg2();
         void alg3();
         double round(double, double);
+        int count_set_bits(long int);
     public:
         Salesman(std::vector<std::vector<std::string>>);
         void run();

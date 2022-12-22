@@ -19,4 +19,11 @@ void Test_Salesman::basic_tests(){
     double answer = alg.get_shortest_path();
     std::cout << "Distance: " << answer << std::endl;
     //assert(answer == 5.4142);
+
+    auto data2 = File_Reader::get_2d_word_vector_from_text_file("data/test_tsp2.txt");
+    Salesman alg2(data2);
+    alg2.run();
+
+    double answer2 = alg2.get_shortest_path();
+    std::cout << "Distance: " << answer2 << std::endl;
 }
