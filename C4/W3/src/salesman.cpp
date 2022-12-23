@@ -53,6 +53,16 @@ long double Salesman::get_city_dist(int c1, int c2){
     return dist;
 }
 
+long double Salesman::calc_squared_dist(long double x1, long double y1, long double x2, long double y2){
+    long double dist = (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1);
+    return dist;
+}
+
+long double Salesman::get_city_squared_dist(int c1, int c2){
+    long double dist = calc_squared_dist(city_x[c1], city_y[c1], city_x[c2], city_y[c2]);
+    return dist;
+}
+
 int Salesman::count_set_bits(long int n){
     if (n == 0){
         return 0;
@@ -73,6 +83,7 @@ void Salesman::alg(){
     seen_cities.push_back(0);
     int progress = 0;
     int report_freq = 0.1*city_count;
+    long double squared_path = 0;
     while(!unseen_cities.empty()){
         if(progress%5000 == 0){
             std::cout << "Percent Done: " << double(progress)/((city_count-1))*100.0 << "%\n"; 
@@ -80,22 +91,24 @@ void Salesman::alg(){
         progress++;
 
         int best_targ_city;
-        long double best_path_dist;
+        //long double best_path_dist;
+        long double best_dist;
         bool first_city = true;
         for(int targ_city: unseen_cities){
-            long double dist = get_city_dist(source_city, targ_city);
-            long double path_dist = dist + shortest_path;
+            long double dist = get_city_squared_dist(source_city, targ_city);
+            //long double path_dist = squared_path + dist;
             if(first_city){
                 first_city = false;
                 best_targ_city = targ_city;
-                best_path_dist = path_dist;
+                //best_path_dist = path_dist;
+                best_dist = dist;
             }
             else{
-                if(path_dist < best_path_dist){
+                if(dist < best_dist){
                     best_targ_city = targ_city;
-                    best_path_dist = path_dist;
+                    best_dist = dist;
                 }
-                else if(path_dist == best_path_dist){
+                else if(dist == best_dist){
                     if(targ_city < best_targ_city){
                         best_targ_city = targ_city;
                     }
@@ -104,11 +117,24 @@ void Salesman::alg(){
         }
         unseen_cities.erase(std::remove(unseen_cities.begin(), unseen_cities.end(), best_targ_city), unseen_cities.end());
         seen_cities.push_back(best_targ_city);
+
         source_city = best_targ_city;
-        shortest_path = best_path_dist;
+        //squared_path = best_dist;
+
     }
 
     /*Finish Tour*/
+    bool first = true;
+    source_city = 0;
+    for(int targ_city: seen_cities){
+        if(first){
+            first = false;
+            continue;
+        }
+
+        shortest_path += get_city_dist(source_city, targ_city);
+        source_city = targ_city;
+    }
     std::cout << "Greedy Path: " << shortest_path << std::endl;
     shortest_path += get_city_dist(source_city, 0);
 

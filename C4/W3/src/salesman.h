@@ -16,6 +16,10 @@ class Salesman{
 
         long double calc_euclid_dist(long double, long double, long double, long double);
         long double get_city_dist(int, int);
+
+        long double calc_squared_dist(long double, long double, long double, long double);
+        long double get_city_squared_dist(int, int);
+
         void alg();
         long double round(long double, long double);
         int count_set_bits(long int);
