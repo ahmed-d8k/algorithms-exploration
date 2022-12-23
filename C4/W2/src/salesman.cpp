@@ -48,16 +48,6 @@ Salesman::Salesman(std::vector<std::vector<std::string>> data){
 
     subprob2[last_added_vert][set_state] = 0;
 
-    //for(int i = 0; i <= city_count; i++){
-    //    std::vector<int> new_vec;
-    //    for(long int j = 0; j <= std::pow(2, city_count); j++){
-    //        new_vec.push_back(-1);
-    //    }
-    //    last_added_city.push_back(new_vec);
-    //}
-
-    //last_added_city[1][set_state] = 0;
-
 }
 
 long double Salesman::calc_euclid_dist(long double x1, long double y1, long double x2, long double y2){
@@ -144,6 +134,7 @@ void Salesman::alg3(){
     shortest_path = best_final_score;
 }
 
+/*Wrong*/
 void Salesman::alg2(){
     int progress = 0;
     /*Initialize with first vec*/
@@ -233,6 +224,7 @@ void Salesman::alg2(){
     }
 }
 
+/*Nonviable Brute Force*/
 void Salesman::alg(){
     int progress = 0;
 
@@ -315,7 +307,6 @@ void Salesman::run(){
 
 long double Salesman::get_shortest_path(){
     return shortest_path;
-    //return round(shortest_path, 0.0001);
 }
 
 long double Salesman::round(long double value, long double precision){
