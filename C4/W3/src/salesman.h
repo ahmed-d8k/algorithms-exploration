@@ -3,22 +3,25 @@
 
 #include <vector>
 #include <string>
+#include <stdio.h>
+#include <gmp.h>
+#include <gmpxx.h>
 
 class Salesman{
     private:
-        std::vector<long double> city_x;
-        std::vector<long double> city_y;
+        std::vector<std::string> city_x;
+        std::vector<std::string> city_y;
     
         int city_count;
-        long double shortest_path;
+        mpf_t shortest_path;
 
         static long double infinity;
 
-        long double calc_euclid_dist(long double, long double, long double, long double);
-        long double get_city_dist(int, int);
+        void calc_euclid_dist(mpf_t, mpf_t, mpf_t, mpf_t, mpf_t);
+        void get_city_dist(mpf_t, int, int);
 
-        long double calc_squared_dist(long double, long double, long double, long double);
-        long double get_city_squared_dist(int, int);
+        void calc_squared_dist(mpf_t, mpf_t, mpf_t, mpf_t, mpf_t);
+        void get_city_squared_dist(mpf_t, int, int);
 
         void alg();
         long double round(long double, long double);
@@ -26,7 +29,7 @@ class Salesman{
     public:
         Salesman(std::vector<std::vector<std::string>>);
         void run();
-        long double get_shortest_path();
+        void get_shortest_path(mpf_t);
 };
 
 #endif

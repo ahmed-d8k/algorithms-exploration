@@ -2,17 +2,17 @@ SRC = main.cpp tests/test_salesman.cpp src/salesman.cpp ../../FileHandling/src/f
 TARG = output
 CC = g++
 CFLAGS = -Wall -g3 -static
-LIBS = -lm
+LIBS = -lgmp -lgmpxx
 
 OBJ = $(SRC:.cpp=.o)
 
 all: $(TARG)
 
 $(TARG): $(OBJ)
-	$(CC) -o $(TARG) $(OBJ)
+	$(CC) -o $(TARG) $(OBJ) $(LIBS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
-	rm -f $(TARG) $(OBJ)
+	rm -f $(OBJ) $(TARG) 
