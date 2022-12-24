@@ -75,17 +75,17 @@ void Salesman::get_city_dist(mpf_t answer, int c1, int c2){
     strcpy(temp_word1, city_x[c1].c_str());
     mpf_set_str(x1, temp_word1, 10);
 
-    char temp_word2[16];
+    char temp_word2[16] = {0};
 
     strcpy(temp_word2, city_y[c1].c_str());
     mpf_set_str(y1, temp_word2, 10);
     
-    char temp_word3[16];
+    char temp_word3[16] = {};
 
     strcpy(temp_word3, city_x[c2].c_str());
     mpf_set_str(x2, temp_word3, 10);
 
-    char temp_word4[16];
+    char temp_word4[16] = {};
 
     strcpy(temp_word4, city_y[c2].c_str());
     mpf_set_str(y2, temp_word4, 10);
