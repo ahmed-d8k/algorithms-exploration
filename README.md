@@ -1,1 +1,1 @@
-Contains my work for the Stanford Algorithms Specialization on Coursera
+Exploring and learning a variety of useful algorithms for CS and ML
